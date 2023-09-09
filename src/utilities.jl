@@ -1,7 +1,7 @@
 using Statistics
 
 """calculate number of hydrogenerators"""
-function countgenerators!(data::Dict)
+function count_generators!(data::Dict)
     return data["hydro"]["nHyd"] = size(data["hydro"]["Hydrogenerators"], 1)
 end
 
@@ -52,7 +52,7 @@ function createvarrefs!(sp::JuMP.Model, pm::AbstractPowerModel)
 end
 
 """count available inflow data"""
-function countavailableinflow!(data::Dict)
+function count_available_inflow!(data::Dict)
     return data["hydro"]["size_inflow"] = size(
         data["hydro"]["Hydrogenerators"][1]["inflow"]
     )
@@ -91,15 +91,15 @@ function index2i!(data::Dict)
 end
 
 """gather useful information from data"""
-function gatherusefulinfo!(data::Dict)
+function gather_useful_info!(data::Dict)
     # calculate number of hydrogenerators
-    countgenerators!(data)
+    count_generators!(data)
 
     # compoute upstream_hydro
     upstream_hydro!(data)
 
     # count available inflow data
-    countavailableinflow!(data)
+    count_available_inflow!(data)
 
     # find index hydrogen
     index2i!(data)
@@ -195,7 +195,7 @@ end
 
 """ water value """
 function water_energy!(data::Dict)
-    countgenerators!(data)
+    count_generators!(data)
     for i in 1:data["hydro"]["nHyd"]
         if !haskey(data["hydro"]["Hydrogenerators"][i], "water_energy")
             water_energy_res!(data, i)

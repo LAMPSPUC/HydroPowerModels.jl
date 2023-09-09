@@ -3,7 +3,7 @@
 ## Hydro power model
 
 ```@docs
-HydroPowerModels.hydrothermaloperation
+HydroPowerModels.hydro_thermal_operation
 ```
 
 ## System data and parameters

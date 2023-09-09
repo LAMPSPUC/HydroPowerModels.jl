@@ -29,7 +29,7 @@ params = create_param( stages = 12,
 Build the Model and execute the SDDP method:
 
 ```julia
-m = hydrothermaloperation(data, params)
+m = hydro_thermal_operation(data, params)
 
 HydroPowerModels.train(m;iteration_limit = 60);
 ```

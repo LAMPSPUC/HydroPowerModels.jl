@@ -389,7 +389,7 @@ Paremeters:
 """
 function plot_grid(data::Dict; path=nothing, size_fig = [15cm, 15cm], has_nodelabel=false, nodelabeldist=4.5)
 
-    gatherusefulinfo!(data)
+    gather_useful_info!(data)
 
     nbus = length(data["powersystem"]["bus"])
 
@@ -483,7 +483,7 @@ end
 """ Plot Hydro Grid installed volume"""
 function plot_hydro_grid(data::Dict; path=nothing, size_fig = [12cm, 12cm], has_nodelabel=false, nodelabeldist=8.5)
 
-    gatherusefulinfo!(data)
+    gather_useful_info!(data)
 
     nHyd = data["hydro"]["nHyd"]
 
@@ -866,8 +866,8 @@ end
 Plots the SDDP outer bound per iteration.
 """
 function plot_bound(m)
-    niter = length(m.policygraph.most_recent_training_results.log)
-    val = round.([m.policygraph.most_recent_training_results.log[iter].bound for iter in 1:niter],digits =5)
+    niter = length(m.forward_graph.most_recent_training_results.log)
+    val = round.([m.forward_graph.most_recent_training_results.log[iter].bound for iter in 1:niter],digits =5)
 
     xticks = unique!([collect(1:Int(floor(niter/4)):niter);niter])
     plot(val,

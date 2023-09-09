@@ -51,7 +51,7 @@ params = create_param(;
 )
 
 #' ## Build Model
-m = hydrothermaloperation(data, params);
+m = hydro_thermal_operation(data, params);
 
 #' ## Solve
 HydroPowerModels.train(m; iteration_limit=60);
@@ -76,7 +76,7 @@ params = create_param(;
 )
 
 #' ## Build Model
-m = hydrothermaloperation(data, params);
+m = hydro_thermal_operation(data, params);
 
 #' ## Solve
 HydroPowerModels.train(m; iteration_limit=60);
@@ -101,7 +101,7 @@ params = create_param(;
 )
 
 #' ## Build Model
-m = hydrothermaloperation(data, params);
+m = hydro_thermal_operation(data, params);
 
 #' ## Solve
 HydroPowerModels.train(m; iteration_limit=60);
