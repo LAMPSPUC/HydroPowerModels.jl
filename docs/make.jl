@@ -10,14 +10,14 @@ makedocs(;
     modules=[HydroPowerModels],
     doctest=false,
     clean=true,
-    repo="https://github.com/andrewrosemberg/HydroPowerModels.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/LAMPSPUC/HydroPowerModels.jl/blob/{commit}{path}#{line}",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://andrewrosemberg.github.io/HydroPowerModels.jl",
+        canonical="https://LAMPSPUC.github.io/HydroPowerModels.jl",
         assets=String[],
     ),
     sitename="HydroPowerModels.jl",
-    authors="Andrew Rosemberg",
+    authors="Andrew Rosemberg et al",
     pages=[
         "Home" => "index.md",
         "Manual" => "getstarted.md",
@@ -29,4 +29,4 @@ makedocs(;
 
 include("make_examples.jl")
 
-deploydocs(; repo="github.com/andrewrosemberg/HydroPowerModels.jl.git")
+deploydocs(; repo="github.com/LAMPSPUC/HydroPowerModels.jl.git")
