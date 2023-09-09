@@ -744,7 +744,7 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 
 <pre class='hljl'>
-<span class='hljl-n'>m</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>hydrothermaloperation</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>params</span><span class='hljl-p'>);</span>
+<span class='hljl-n'>m</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>hydro_thermal_operation</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>params</span><span class='hljl-p'>);</span>
 </pre>
 
 
@@ -768,7 +768,7 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 
 <pre class='hljl'>
-<span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>termination_status</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>policygraph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>end_time</span><span class='hljl-p'>)</span>
+<span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>termination_status</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>forward_graph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>end_time</span><span class='hljl-p'>)</span>
 </pre>
 
 

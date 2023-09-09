@@ -749,7 +749,7 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 
 <pre class='hljl'>
-<span class='hljl-n'>m</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>hydrothermaloperation</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>params</span><span class='hljl-p'>);</span>
+<span class='hljl-n'>m</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>hydro_thermal_operation</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>params</span><span class='hljl-p'>);</span>
 </pre>
 
 
@@ -773,12 +773,12 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 
 <pre class='hljl'>
-<span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>termination_status</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>policygraph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>end_time</span><span class='hljl-p'>)</span>
+<span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>termination_status</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>forward_graph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>end_time</span><span class='hljl-p'>)</span>
 </pre>
 
 
 <pre class="output">
-&#40;:statistical, 2.5904059410095215&#41;
+&#40;:statistical, 2.141709089279175&#41;
 </pre>
 
 
@@ -810,11 +810,11 @@ ERROR: UndefVarError: &#96;plot_bound&#96; not defined
 
 <pre class="output">
 Dict&#123;Symbol, Any&#125; with 5 entries:
-  :solve_time  &#61;&gt; 1.20877
+  :solve_time  &#61;&gt; 0.998511
   :params      &#61;&gt; Dict&#123;Any, Any&#125;&#40;&quot;optimizer&quot;&#61;&gt;Optimizer, &quot;discount_factor&quot;&#61;
 &gt;1.0…
-  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;Intel&#40;R&#41; Xeon&#40;R&#41; CPU E5-2673 v4 @ 2.30GHz&quot;, :
-memo…
+  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;Intel&#40;R&#41; Xeon&#40;R&#41; Platinum 8272CL CPU @ 2.60GH
+z&quot;, …
   :data        &#61;&gt; Dict&#123;Any, Any&#125;&#91;Dict&#40;&quot;powersystem&quot;&#61;&gt;Dict&#123;String, Any&#125;&#40;&quot;cos
 t_de…
   :simulations &#61;&gt; Vector&#123;Dict&#123;Symbol, Any&#125;&#125;&#91;&#91;Dict&#40;:bellman_term&#61;&gt;58122.6, :
@@ -835,15 +835,15 @@ nois…
 
 
 <pre class='hljl'>
-<span class='hljl-nd'>@test</span><span class='hljl-t'> </span><span class='hljl-nf'>isapprox</span><span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>calculate_bound</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>policygraph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nfB'>59357.12</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>atol</span><span class='hljl-oB'>=</span><span class='hljl-ni'>10</span><span class='hljl-p'>)</span>
+<span class='hljl-nd'>@test</span><span class='hljl-t'> </span><span class='hljl-nf'>isapprox</span><span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>calculate_bound</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>forward_graph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nfB'>59357.12</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>atol</span><span class='hljl-oB'>=</span><span class='hljl-ni'>10</span><span class='hljl-p'>)</span>
 </pre>
 
 
 <pre class="output">
 Test Failed at /home/runner/work/HydroPowerModels.jl/HydroPowerModels.jl/ex
 amples/HydroValleys/case3_5years.jl:2
-  Expression: isapprox&#40;SDDP.calculate_bound&#40;m.policygraph&#41;, 59357.12, atol 
-&#61; 10&#41;
+  Expression: isapprox&#40;SDDP.calculate_bound&#40;m.forward_graph&#41;, 59357.12, ato
+l &#61; 10&#41;
    Evaluated: isapprox&#40;59379.379685146, 59357.12; atol &#61; 10&#41;
 </pre>
 
