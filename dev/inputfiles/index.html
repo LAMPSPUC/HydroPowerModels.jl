@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Case data · HydroPowerModels.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link rel="canonical" href="https://LAMPSPUC.github.io/HydroPowerModels.jl/inputfiles/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">HydroPowerModels.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../getstarted/">Manual</a></li><li class="is-active"><a class="tocitem" href>Case data</a><ul class="internal"><li><a class="tocitem" href="#Network-Description:-&quot;PowerModels.json&quot;"><span>Network Description: &quot;PowerModels.json&quot;</span></a></li><li><a class="tocitem" href="#Hydro-Generators-Description:-&quot;hydro.json&quot;"><span>Hydro Generators Description: &quot;hydro.json&quot;</span></a></li><li><a class="tocitem" href="#Inflows:-&quot;inflows.csv&quot;"><span>Inflows: &quot;inflows.csv&quot;</span></a></li></ul></li><li><a class="tocitem" href="../examples/cases/">Examples</a></li><li><a class="tocitem" href="../apireference/">Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Case data</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Case data</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/LAMPSPUC/HydroPowerModels.jl/blob/main/docs/src/inputfiles.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Input-Files"><a class="docs-heading-anchor" href="#Input-Files">Input Files</a><a id="Input-Files-1"></a><a class="docs-heading-anchor-permalink" href="#Input-Files" title="Permalink"></a></h1><p>HydroPowerModels.jl uses case description files to specify cases. The following subsections intend to give a brief description of those files.</p><h2 id="Network-Description:-&quot;PowerModels.json&quot;"><a class="docs-heading-anchor" href="#Network-Description:-&quot;PowerModels.json&quot;">Network Description: &quot;PowerModels.json&quot;</a><a id="Network-Description:-&quot;PowerModels.json&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#Network-Description:-&quot;PowerModels.json&quot;" title="Permalink"></a></h2><p>Network description follows the standards of <a href="https://lanl-ansi.github.io/PowerModels.jl/stable/network-data/">PowerModels.jl</a>, but some extra information is required. Thus, we use a JSON file containing the information required by PowerModels.jl, with the <a href="https://matpower.org/docs/MATPOWER-manual-6.0b1.pdf">MATPOWER notation</a>, and introduced some keys to add the extra information we required (as the &quot;cost of deficit&quot;).</p><p>This following is an example of a Network Description file:</p><pre><code class="nohighlight hljs">{
+  &quot;bus&quot;: {
+    &quot;1&quot;: {
+      &quot;zone&quot;: 1, # [not] loss zone (positive integer).
+      &quot;bus_i&quot;: 1, # bus number (positive integer).
+      &quot;bus_type&quot;: 3, # bus type (1 = PQ, 2 = PV, 3 = ref, 4 = isolated).
+      &quot;vmax&quot;: 1.1, # maximum voltage magnitude (p.u.).
+      &quot;area&quot;: 1, # area number (positive integer).
+      &quot;vmin&quot;: 0.9, # minimum voltage magnitude (p.u.).
+      &quot;index&quot;: 1, # index
+      &quot;va&quot;: 0, # voltage angle (degrees)
+      &quot;vm&quot;: 1, # voltage magnitude (p.u.)
+      &quot;base_kv&quot;: 0 ## base voltage (kV)
+    }#
+  },
+  &quot;source_type&quot;: &quot;matpower&quot;, # source file type which generated this json. (if exists)
+  &quot;name&quot;: &quot;case3&quot;, # case name
+  &quot;dcline&quot;: {}, # [not] DC lines description
+  &quot;source_version&quot;: { # source file version (if exists)
+    &quot;major&quot;: 2,
+    &quot;minor&quot;: 0,
+    &quot;patch&quot;: 0,
+    &quot;prerelease&quot;: [],
+    &quot;build&quot;: []
+  },
+  &quot;gen&quot;: {
+    &quot;1&quot;: {
+      &quot;ncost&quot;: 2, # Number of terms to interpolate in cost funcion.  
+      &quot;qc1max&quot;: 0, # Maximum reactive power output at PC1 (MVAr).
+      &quot;pg&quot;: 0, # Active Generation (Not Used by PowerModels,but expected).
+      &quot;model&quot;: 2, # Cost model, 1 = piecewise linear, 2 = polynomial.
+      &quot;shutdown&quot;: 0, # Shutdown Cost.
+      &quot;startup&quot;: 0, # Startup Cost.
+      &quot;qc2max&quot;: 0, # Maximum reactive power output at PC2 (MVAr).
+      &quot;ramp_agc&quot;: 0, # [not]
+      &quot;qg&quot;: 0, # Reactive Generation (Not Used by PowerModels,but expected).
+      &quot;gen_bus&quot;: 2, # Bus Of Generator
+      &quot;pmax&quot;: 1, # Maximum Real Power Generation (u.u) (Will be multi by mbase).
+      &quot;ramp_10&quot;: 0, # [not]
+      &quot;vg&quot;: 1, # Voltage magnitude setpoint (p.u.).
+      &quot;mbase&quot;: 100, # (MVA) Total MVA base of machine.
+      &quot;pc2&quot;: 0, # Upper real power output of PQ capability curve (MW).
+      &quot;index&quot;: 1, # Index
+      &quot;cost&quot;: [ # (dol/(MW/MVA)) Cost terms
+        18, # linear factor.
+        0 # intercept.
+      ],
+      &quot;qmax&quot;: 100, # Maximun Reacitive Power Generation
+      &quot;gen_status&quot;: 1, # Status Generator (On 1, OFF 0).
+      &quot;qmin&quot;: -100, # Minimum Reactive Power Generation
+      &quot;qc1min&quot;: 0, # Minimum reactive power output at PC1 (MVAr).
+      &quot;qc2min&quot;: 0, # Minimum reactive power output at PC2 (MVAr).
+      &quot;pc1&quot;: 0, # Lower real power output of PQ capability curve (MW).
+      &quot;ramp_q&quot;: 0, # [not]
+      &quot;ramp_30&quot;: 0, # [not]
+      &quot;pmin&quot;: 0, # Minimum Real Power Generation (u.u) (Will be multi by mbase).
+      &quot;apf&quot;: 0 # [not] Area participation factor.
+    }
+  },
+  &quot;branch&quot;: {
+    &quot;1&quot;: {
+      &quot;br_r&quot;: 0.065, # Resistance (p.u.).
+      &quot;rate_a&quot;: 1, #  MVA rating A (long term rating), set to 0 for unlimited.
+      &quot;shift&quot;: 0, #  Transformer phase shift angle (degrees), positive ⇒ delay.
+      &quot;br_x&quot;: 1, #  Reactance (p.u.).
+      &quot;g_to&quot;: 0, # [not]
+      &quot;g_fr&quot;: 0, # [not]
+      &quot;b_fr&quot;: 0.225,
+      &quot;f_bus&quot;: 1, # “from” bus number.
+      &quot;br_status&quot;: 1, # Initial branch status, 1 = in-service, 0 = out-of-service.
+      &quot;t_bus&quot;: 3, # “to” bus number.
+      &quot;b_to&quot;: 0.225,
+      &quot;index&quot;: 1, # Index.
+      &quot;angmin&quot;: -1.0472, # minimum angle difference, θf − θt (rad).
+      &quot;angmax&quot;: 1.0472, # maximum angle difference, θf − θt (rad).
+      &quot;transformer&quot;: false, # Bool to indicate if it is transformer.
+      &quot;tap&quot;: 1 #  transformer off nominal turns ratio.
+    }
+  },
+  &quot;storage&quot;: {}, # [not] storages descriptions
+  &quot;baseMVA&quot;: 100,
+  &quot;per_unit&quot;: true,
+  &quot;shunt&quot;: {}, # [not]
+  &quot;switch&quot;: {}, # [not]
+  &quot;cost_deficit&quot;: 1000, # cost of deficit in (dol/MW)
+  &quot;load&quot;: {
+    &quot;1&quot;: {
+      &quot;load_bus&quot;: 3, # load&#39;s bus number.
+      &quot;status&quot;: 1, # Initial load status, 1 = in-service, 0 = out-of-service.
+      &quot;qd&quot;: 0, # reactive power demand.
+      &quot;pd&quot;: 1, # (MW) real power demand.
+      &quot;index&quot;: 1 # index.
+    }
+  }
+}
+</code></pre><h2 id="Hydro-Generators-Description:-&quot;hydro.json&quot;"><a class="docs-heading-anchor" href="#Hydro-Generators-Description:-&quot;hydro.json&quot;">Hydro Generators Description: &quot;hydro.json&quot;</a><a id="Hydro-Generators-Description:-&quot;hydro.json&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#Hydro-Generators-Description:-&quot;hydro.json&quot;" title="Permalink"></a></h2><p>This is an example of a Hydro Description file:</p><pre><code class="nohighlight hljs">{
+    &quot;Hydrogenerators&quot;:[
+        {   
+            &quot;index&quot;: 1, # Index of Hydrogenerators.
+            &quot;index_grid&quot;: 3, # Index of generator in network.
+            &quot;name&quot;: &quot;&quot;, # Name.
+            &quot;max_volume&quot;:10, # (Hm3) Maximun Volume of Reservoir.
+            &quot;min_volume&quot;:0, # (Hm3) Minimun Volume of Reservoir.
+            &quot;max_turn&quot;: 100 # (m3/s) Maximun Outflow of Reservoir.
+            &quot;min_turn&quot;: 0 # (m3/s) Minimun Outflow of Reservoir.
+            &quot;initial_volume&quot;:0, # (Hm3) Initial Volume of Reservoir.
+            &quot;production_factor&quot;:1, # (MW/ (m3/s)) Production Factor.
+            &quot;spill_cost&quot;:0, # (dol/Hm3) Cost of Spillage.
+            &quot;minimal_outflow_violation_cost&quot;:0, # (dol/(m3/s)) Cost of minimal outflow violation.
+            &quot;minimal_volume_violation_cost&quot;:0, # (dol/(Hm3)) Cost of minimal volume violation.
+            &quot;downstream_turn&quot;: [], # Hydro Generators downstream of turn.
+            &quot;downstream_spill&quot;: [] # Hydro Generators downstream of spillage.
+        }
+    ]
+}
+</code></pre><h2 id="Inflows:-&quot;inflows.csv&quot;"><a class="docs-heading-anchor" href="#Inflows:-&quot;inflows.csv&quot;">Inflows: &quot;inflows.csv&quot;</a><a id="Inflows:-&quot;inflows.csv&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#Inflows:-&quot;inflows.csv&quot;" title="Permalink"></a></h2><p>Inflows are expected in (m3/s) in a csv file representing a matrix, where rows are the stages and columns are the scenarious.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../getstarted/">« Manual</a><a class="docs-footer-nextpage" href="../examples/cases/">Examples »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Saturday 9 September 2023 17:12">Saturday 9 September 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
