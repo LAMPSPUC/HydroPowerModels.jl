@@ -50,7 +50,7 @@ params = create_param(;
 
 #' ## Build Model
 #+ results =  "hidden"
-m = hydrothermaloperation(alldata, params);
+m = hydro_thermal_operation(alldata, params);
 
 #' ## Train
 #+ results =  "hidden"
@@ -63,7 +63,7 @@ HydroPowerModels.train(
 end_time = time() - start_time
 
 #' Termination Status and solve time (s)
-(SDDP.termination_status(m.policygraph), end_time)
+(SDDP.termination_status(m.forward_graph), end_time)
 
 #' Bounds
 if plot_bool == true

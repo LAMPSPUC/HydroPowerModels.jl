@@ -1,8 +1,7 @@
-
 #' ---
-#' title : Example Case 3 - 5 Years Planning
-#' author : Andrew Rosemberg
-#' date : 17th Feb 2019
+#' title : Example Case 3 Inconsistency - Year Planning
+#' author : Thiago Novaes
+#' date : 9th Sep 2023
 #' ---
 
 #' # Introduction
@@ -13,16 +12,17 @@
 #'    - 2 Generators
 #'    - 1 Reservoir and Hydrogenerator
 #'    - 3 Scenarios
-#'    - 60 Stages
+#'    - 12 Stages
 
 #' # Case
 
 #' ## Importing package and optimizer
 using GLPK
+using Ipopt
 using HydroPowerModels
 
 #' ## Initialization
-#+ results =  "hidden"
+#'+ results =  "hidden"
 if !@isdefined plot_bool
     plot_bool = true
 end
@@ -42,23 +42,26 @@ end
 
 #' Parameters
 params = create_param(;
-    stages=12 * 5,
+    stages=12,
     model_constructor_grid=DCPPowerModel,
+    model_constructor_grid_forward=ACPPowerModel,
     post_method=PowerModels.build_opf,
     optimizer=GLPK.Optimizer,
+    optimizer_forward=Ipopt.Optimizer,
 );
 
 #' ## Build Model
-#+ results =  "hidden"
+#'+ results =  "hidden"
 m = hydro_thermal_operation(alldata, params);
 
 #' ## Train
-#+ results =  "hidden"
+#'+ results =  "hidden"
+Random.seed!(seed)
 start_time = time()
 HydroPowerModels.train(
     m;
     iteration_limit=100,
-    stopping_rules=[SDDP.Statistical(; num_replications=200, iteration_period=80)],
+    stopping_rules=[SDDP.Statistical(; num_replications=20, iteration_period=20)],
 );
 end_time = time() - start_time
 
@@ -79,7 +82,7 @@ results
 #' ## Testing Results
 using Test
 #' Bound
-@test isapprox(SDDP.calculate_bound(m.forward_graph), 59357.12, atol=10)
+@test SDDP.calculate_bound(m.forward_graph) >= 1.1e4
 #' Number of Simulations
 @test length(results[:simulations]) == 100
 

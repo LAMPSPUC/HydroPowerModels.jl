@@ -22,7 +22,7 @@ params = create_param(;
 ########################################
 #       Build Model
 ########################################
-m = hydrothermaloperation(alldata, params)
+m = hydro_thermal_operation(alldata, params)
 
 ########################################
 #       Solve

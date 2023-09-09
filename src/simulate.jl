@@ -10,10 +10,10 @@
 
 """simulate function"""
 function simulate(
-    hydromodel::HydroPowerModel,
+    hydro_model::HydroPowerModel,
     number_replications::Int=1;
     sampling_scheme=SDDP.InSampleMonteCarlo(;
-        max_depth=hydromodel.params["stages"], terminate_on_dummy_leaf=false
+        max_depth=hydro_model.params["stages"], terminate_on_dummy_leaf=false
     ),
     kwargs...,
 )
@@ -21,7 +21,7 @@ function simulate(
 
     start_time = time()
     solution[:simulations] = SDDP.simulate(
-        hydromodel.policygraph,
+        hydro_model.forward_graph,
         number_replications;
         sampling_scheme=sampling_scheme,
         custom_recorders=Dict{Symbol,Function}(
@@ -32,13 +32,13 @@ function simulate(
     )
     solution[:solve_time] = time() - start_time
 
-    solution[:params] = hydromodel.params
+    solution[:params] = hydro_model.params
     solution[:machine] = Dict(
         :cpu => Sys.cpu_info()[1].model, :memory => string(Sys.total_memory() / 2^30, " Gb")
     )
 
     # add original data dict
-    solution[:data] = hydromodel.alldata
+    solution[:data] = hydro_model.alldata
 
     return solution
 end
