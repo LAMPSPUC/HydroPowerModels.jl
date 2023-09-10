@@ -813,20 +813,20 @@ numerical stability report
 -------------------------------------------------------------------
  iteration    simulation      bound        time &#40;s&#41;     solves  pid
 -------------------------------------------------------------------
-         1   1.551194e&#43;04  6.015879e&#43;03  6.648138e&#43;00        48   1
-        11   1.120000e&#43;04  1.132657e&#43;04  7.649502e&#43;00       528   1
+         1   1.551194e&#43;04  6.015879e&#43;03  7.579365e&#43;00        48   1
+         2   1.069452e&#43;04  8.403820e&#43;03  8.671596e&#43;00        96   1
 Simulated policy value: &#91; 1.081044e&#43;04,  1.217472e&#43;04&#93;
-        20   1.300000e&#43;04  1.133943e&#43;04  7.672402e&#43;00       960   1
+        20   1.300000e&#43;04  1.133943e&#43;04  8.746462e&#43;00       960   1
 -------------------------------------------------------------------
 status         : statistical
-total time &#40;s&#41; : 7.672402e&#43;00
+total time &#40;s&#41; : 8.746462e&#43;00
 total solves   : 960
 best bound     :  1.133943e&#43;04
 simulation ci  :  1.166454e&#43;04 ± 8.542117e&#43;02
 numeric issues : 0
 -------------------------------------------------------------------
 
-15.781198024749756
+18.140111923217773
 </pre>
 
 
@@ -839,7 +839,7 @@ numeric issues : 0
 
 
 <pre class="output">
-&#40;:statistical, 15.781198024749756&#41;
+&#40;:statistical, 18.140111923217773&#41;
 </pre>
 
 
@@ -871,11 +871,11 @@ ERROR: UndefVarError: &#96;plot_bound&#96; not defined
 
 <pre class="output">
 Dict&#123;Symbol, Any&#125; with 5 entries:
-  :solve_time  &#61;&gt; 1.0988
+  :solve_time  &#61;&gt; 1.2799
   :params      &#61;&gt; Dict&#123;Any, Any&#125;&#40;&quot;optimizer&quot;&#61;&gt;Optimizer, &quot;discount_factor&quot;&#61;
 &gt;1.0…
-  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;Intel&#40;R&#41; Xeon&#40;R&#41; Platinum 8272CL CPU @ 2.60GH
-z&quot;, …
+  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;Intel&#40;R&#41; Xeon&#40;R&#41; CPU E5-2673 v4 @ 2.30GHz&quot;, :
+memo…
   :data        &#61;&gt; Dict&#123;Any, Any&#125;&#91;Dict&#40;&quot;powersystem&quot;&#61;&gt;Dict&#123;String, Any&#125;&#40;&quot;cos
 t_de…
   :simulations &#61;&gt; Vector&#123;Dict&#123;Symbol, Any&#125;&#125;&#91;&#91;Dict&#40;:bellman_term&#61;&gt;10079.8, :
@@ -1058,7 +1058,7 @@ ERROR: UndefVarError: &#96;plotresults&#96; not defined
         <div class="footer">
           <p>
             Published from <a href="case3.jl">case3.jl</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-09-09.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-09-10.
           </p>
         </div>
       </div>
