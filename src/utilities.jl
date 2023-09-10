@@ -1,5 +1,3 @@
-using Statistics
-
 """calculate number of hydrogenerators"""
 function count_generators!(data::Dict)
     return data["hydro"]["nHyd"] = size(data["hydro"]["Hydrogenerators"], 1)

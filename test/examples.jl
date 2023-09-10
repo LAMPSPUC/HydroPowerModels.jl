@@ -8,6 +8,8 @@ const Examples = Dict(
         "case3deterministic_nowater.jl",
         "case3deterministic_overwater.jl",
         "case3_inconsistency.jl",
+        "case3_simulation_stalling.jl",
+        "case3_and_stopping_rules.jl",
     ],
 )
 
