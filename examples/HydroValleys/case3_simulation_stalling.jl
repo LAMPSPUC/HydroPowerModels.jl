@@ -55,11 +55,7 @@ m = hydro_thermal_operation(alldata, params);
 #'+ results =  "hidden"
 Random.seed!(seed)
 start_time = time()
-HydroPowerModels.train(
-    m;
-    iteration_limit=100,
-    stopping_rules=[SimulationStalling()],
-);
+HydroPowerModels.train(m; iteration_limit=100, stopping_rules=[SimulationStalling()]);
 end_time = time() - start_time
 
 #' Termination Status and solve time (s)

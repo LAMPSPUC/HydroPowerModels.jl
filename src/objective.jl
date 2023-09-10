@@ -26,14 +26,16 @@ end
 
 """add minimal outflow violation cost to cost dict"""
 function add_min_outflow_violation_cost(sp, data::Dict)
-    return sp.ext[:cost][:min_outflow_violation_cost] =
-        sum(data["hydro"]["Hydrogenerators"][i]["minimal_outflow_violation_cost"] * 
-        sp[:min_outflow_violation][i] for i in 1:data["hydro"]["nHyd"])
+    return sp.ext[:cost][:min_outflow_violation_cost] = sum(
+        data["hydro"]["Hydrogenerators"][i]["minimal_outflow_violation_cost"] *
+        sp[:min_outflow_violation][i] for i in 1:data["hydro"]["nHyd"]
+    )
 end
 
 """add minimal volume violation cost to cost dict"""
 function add_min_volume_violation_cost(sp, data::Dict)
-    return sp.ext[:cost][:min_volume_violation_cost] =
-        sum(data["hydro"]["Hydrogenerators"][i]["minimal_volume_violation_cost"] * 
-        sp[:min_volume_violation][i] for i in 1:data["hydro"]["nHyd"])
+    return sp.ext[:cost][:min_volume_violation_cost] = sum(
+        data["hydro"]["Hydrogenerators"][i]["minimal_volume_violation_cost"] *
+        sp[:min_volume_violation][i] for i in 1:data["hydro"]["nHyd"]
+    )
 end

@@ -46,7 +46,11 @@ Required parameters are:
 function build_opf_powermodels(sp::JuMP.Model, data::Dict, params::Dict, is_forward::Bool)
     return PowerModels.instantiate_model(
         data["powersystem"],
-        is_forward ? params["model_constructor_grid_forward"] : params["model_constructor_grid_backward"],
+        if is_forward
+            params["model_constructor_grid_forward"]
+        else
+            params["model_constructor_grid_backward"]
+        end,
         params["post_method"];
         jump_model=sp,
         setting=params["setting"],
@@ -81,12 +85,16 @@ function build_model(
     alldata::Array{Dict{Any,Any}},
     params::Dict,
     build_opf_model::Function,
-    is_forward::Bool=false)
-
+    is_forward::Bool=false,
+)
     model = SDDP.PolicyGraph(
         graph;
         sense=:Min,
-        optimizer= is_forward ? params["optimizer_forward"] : params["optimizer_backward"],
+        optimizer=if is_forward
+            params["optimizer_forward"]
+        else
+            params["optimizer_backward"]
+        end,
         lower_bound=0.0,
         direct_mode=false,
     ) do sp, t
@@ -155,27 +163,15 @@ function build_model(
         set_objective(sp, data)
 
         # # variable primal start
-        JuMP.MOI.set.(
-            sp, JuMP.MOI.VariablePrimalStart(), sp[:deficit], 0.0
-        )
-        JuMP.MOI.set.(
-            sp, JuMP.MOI.VariablePrimalStart(), sp[:inflow], 0.0
-        )
-        JuMP.MOI.set.(
-            sp, JuMP.MOI.VariablePrimalStart(), sp[:outflow], 0.0
-        )
-        JuMP.MOI.set.(
-            sp, JuMP.MOI.VariablePrimalStart(), sp[:spill], 0.0
-        )
+        JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), sp[:deficit], 0.0)
+        JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), sp[:inflow], 0.0)
+        JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), sp[:outflow], 0.0)
+        JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), sp[:spill], 0.0)
         for r in sp[:reservoir]
-            JuMP.MOI.set.(
-                sp, JuMP.MOI.VariablePrimalStart(), r.in, 0.0
-            )
+            JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), r.in, 0.0)
         end
         for r in sp[:reservoir]
-            JuMP.MOI.set.(
-                sp, JuMP.MOI.VariablePrimalStart(), r.out, 0.0
-            )
+            JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), r.out, 0.0)
         end
     end
     return model
@@ -188,5 +184,7 @@ Return true if the forward and backward are not equal.
 """
 
 function has_inconsistency(params::Dict)::Bool
-    return params["model_constructor_grid_forward"] != params["model_constructor_grid_backward"] || params["optimizer_forward"] != params["optimizer_backward"]
+    return params["model_constructor_grid_forward"] !=
+           params["model_constructor_grid_backward"] ||
+           params["optimizer_forward"] != params["optimizer_backward"]
 end

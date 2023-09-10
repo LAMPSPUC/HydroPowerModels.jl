@@ -3,16 +3,16 @@ function rainfall_noises(sp, data::Dict, _::Dict, t::Int)
     SDDP.parameterize(
         sp,
         collect(1:size(data["hydro"]["scenario_probabilities"], 2)),
-        data["hydro"]["scenario_probabilities"][cidx(t, data["hydro"]["size_inflow"][1]),:],
+        data["hydro"]["scenario_probabilities"][
+            cidx(t, data["hydro"]["size_inflow"][1]), :,
+        ],
     ) do ω
         # if isnothing(JuMP.MOI.get(sp,JuMP.MOI.VariablePrimalStart(), JuMP.all_variables(sp)[end]))
         #     JuMP.MOI.set.(sp,JuMP.MOI.VariablePrimalStart(), JuMP.all_variables(sp), NaN)
         # end
         nostart = findall(
             x -> isnothing(x),
-            JuMP.MOI.get.(
-                sp, JuMP.MOI.VariablePrimalStart(), JuMP.all_variables(sp)
-            ),
+            JuMP.MOI.get.(sp, JuMP.MOI.VariablePrimalStart(), JuMP.all_variables(sp)),
         )
         for theta in nostart
             JuMP.MOI.set(
@@ -59,7 +59,7 @@ function constraint_hydro_generation(sp, data::Dict, pm::AbstractPowerModel)
     @constraint(
         sp,
         turbine_energy[
-            i=1:data["hydro"]["nHyd"];
+            i=1:data["hydro"]["nHyd"]
             !isnothing(data["hydro"]["Hydrogenerators"][i]["index_grid"])
         ],
         PowerModels.var(pm, :pg)[data["hydro"]["Hydrogenerators"][i]["i_grid"]] *
@@ -83,10 +83,9 @@ end
 function constraint_min_outflow_violation(sp, data::Dict)
     @constraint(
         sp,
-        min_outflow_violation_bound[
-            r=1:data["hydro"]["nHyd"]
-        ],
-        sp[:min_outflow_violation][r] >= (data["hydro"]["Hydrogenerators"][r]["min_turn"] - sp[:outflow][r])
+        min_outflow_violation_bound[r=1:data["hydro"]["nHyd"]],
+        sp[:min_outflow_violation][r] >=
+            (data["hydro"]["Hydrogenerators"][r]["min_turn"] - sp[:outflow][r])
     )
     return nothing
 end
@@ -95,10 +94,9 @@ end
 function constraint_min_volume_violation(sp, data::Dict)
     @constraint(
         sp,
-        min_volume_violation_bound[
-            r=1:data["hydro"]["nHyd"]
-        ],
-        sp[:min_volume_violation][r] >= (data["hydro"]["Hydrogenerators"][r]["min_turn"] - sp[:reservoir][r].out)
+        min_volume_violation_bound[r=1:data["hydro"]["nHyd"]],
+        sp[:min_volume_violation][r] >=
+            (data["hydro"]["Hydrogenerators"][r]["min_turn"] - sp[:reservoir][r].out)
     )
     return nothing
 end

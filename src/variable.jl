@@ -25,7 +25,7 @@ function variable_min_outflow_violation(sp, data::Dict)
     @variables(
         sp,
         begin
-            min_outflow_violation[r=1:data["hydro"]["nHyd"]] >= 0 
+            min_outflow_violation[r=1:data["hydro"]["nHyd"]] >= 0
         end
     )
 end
