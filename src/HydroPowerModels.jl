@@ -1,11 +1,13 @@
 module HydroPowerModels
 
 using JuMP, PowerModels, SDDP
+using HypothesisTests, Statistics
 using JSON
 using CSV
 using DataFrames
 using Reexport: Reexport
 
+include("plugins/stop_rules.jl")
 include("structs.jl")
 include("variable.jl")
 include("constraint.jl")
@@ -17,7 +19,8 @@ include("train.jl")
 include("objective.jl")
 include("build_model.jl")
 
-export hydro_thermal_operation, create_param, set_active_demand!, flat_dict, signif_dict
+export hydro_thermal_operation,
+    create_param, set_active_demand!, flat_dict, signif_dict, SimulationStalling
 
 Reexport.@reexport using PowerModels, SDDP
 
