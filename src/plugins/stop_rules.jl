@@ -51,26 +51,3 @@ function SDDP.convergence_test(graph::SDDP.PolicyGraph{T}, log::Vector{SDDP.Log}
     rule.previous_simulations = simulations
     return p_value > rule.p_value
 end
-
-# ======================= And Stopping Rule ======================= #
-
-"""
-    AndStoppingRules(stopping_rules::Vector{SDDP.AbstractStoppingRule})
-
-Condition is met when all conditions 'stopping_rules' are met.
-"""
-mutable struct AndStoppingRules <: SDDP.AbstractStoppingRule
-    stopping_rules::Vector{SDDP.AbstractStoppingRule}
-end
-
-SDDP.stopping_rule_status(::AndStoppingRules) = :and_stopping_rules
-
-function SDDP.convergence_test(graph::SDDP.PolicyGraph{T}, log::Vector{SDDP.Log},
-                          rule::AndStoppingRules) where T
-    for stopping_rule in rule.stopping_rules
-        if !SDDP.convergence_test(graph, log, stopping_rule)
-            return false
-        end
-    end
-    return true
-end

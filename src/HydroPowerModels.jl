@@ -19,7 +19,7 @@ include("train.jl")
 include("objective.jl")
 include("build_model.jl")
 
-export hydro_thermal_operation, create_param, set_active_demand!, flat_dict, signif_dict, SimulationStalling, AndStoppingRules
+export hydro_thermal_operation, create_param, set_active_demand!, flat_dict, signif_dict, SimulationStalling
 
 Reexport.@reexport using PowerModels, SDDP
 
