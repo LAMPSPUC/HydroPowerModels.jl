@@ -20,7 +20,7 @@ mutable struct SimulationStalling <: SDDP.AbstractStoppingRule
     verbose::Bool
     function SimulationStalling(; p_value = 0.05, number_simulations=2, iteration_period = 1,
         previous_simulations = Vector{Float64}(undef, number_simulations), scenarious = nothing, verbose=false)
-        @assert(number_simulations > 1) # number_simulations - 1 is the degree of fredom of the test that must be greater than zero
+        @assert(number_simulations > 1) # number_simulations - 1 is the degree of freedom of the test that must be greater than zero
         return new(p_value, iteration_period, number_simulations, previous_simulations,scenarious, verbose)
     end
 end
