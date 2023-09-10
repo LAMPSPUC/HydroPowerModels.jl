@@ -21,7 +21,7 @@ mutable struct SimulationStalling <: SDDP.AbstractStoppingRule
     function SimulationStalling(; p_value = 0.05, number_simulations=2, iteration_period = 1,
         previous_simulations = Vector{Float64}(undef, number_simulations), scenarious = nothing, verbose=false)
         @assert(number_simulations > 1) # number_simulations - 1 is the degree of freedom of the test that must be greater than zero
-        return new(p_value, iteration_period, number_simulations, previous_simulations,scenarious, verbose)
+        return new(p_value, iteration_period, number_simulations, previous_simulations, scenarious, verbose)
     end
 end
 
@@ -34,26 +34,22 @@ function SDDP.convergence_test(graph::SDDP.PolicyGraph{T}, log::Vector{SDDP.Log}
     end
     
     if length(log) == 1 || isnothing(rule.scenarious)
-        rule.scenarious = SDDP.Historical([SDDP.sample_scenario(graph, SDDP.InSampleMonteCarlo())[1] for i = 1:rule.number_simulations])
+        rule.scenarious = SDDP.Historical([SDDP.sample_scenario(graph, SDDP.InSampleMonteCarlo())[1] for _ = 1:rule.number_simulations])
     end
     
     results = SDDP.simulate(graph, rule.number_simulations, sampling_scheme = rule.scenarious)
     simulations = [sum(t[:stage_objective] for t in sim) for sim in results]
 
     htest = OneSampleTTest(rule.previous_simulations, simulations)
-    pval = pvalue(htest)
+    p_value = pvalue(htest)
     sample_mean = Statistics.mean(simulations)
     
     if rule.verbose
-        println("Simulated policy value: [",
-                sample_mean, ", ", htest.t, ", ", pval, "]")
+        println("Simulated policy value: [", sample_mean, ", ", htest.t, ", ", p_value, "]")
     end
-    
-    if pval > rule.p_value
-        return true
-    end
+
     rule.previous_simulations = simulations
-    return false
+    return p_value > rule.p_value
 end
 
 # ======================= And Stopping Rule ======================= #
