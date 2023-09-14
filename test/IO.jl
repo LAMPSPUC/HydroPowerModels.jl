@@ -17,8 +17,14 @@ using GLPK
     end
 
     @testset "Validate Json" begin
-        @test isnothing(validate_json_hydro("..\\testcases\\validate_json\\correct_json.jl"))
-        @test !isnothing(validate_json_hydro("..\\testcases\\validate_json\\missing_json.jl"))
-        @test !isnothing(validate_json_hydro("..\\testcases\\validate_json\\type_json.jl"))
+        @test isnothing(
+            validate_json_hydro(joinpath(testcases_dir, "validate_json", "correct.json"))
+        )
+        @test !isnothing(
+            validate_json_hydro(joinpath(testcases_dir, "validate_json", "missing.json"))
+        )
+        @test !isnothing(
+            validate_json_hydro(joinpath(testcases_dir, "validate_json", "type.json"))
+        )
     end
 end

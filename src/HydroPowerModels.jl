@@ -20,8 +20,14 @@ include("objective.jl")
 include("build_model.jl")
 
 export hydro_thermal_operation,
-    create_param, set_active_demand!, flat_dict, signif_dict, SimulationStalling,
-    validate_json, validate_json_hydro, validate_json_powermodels
+    create_param,
+    set_active_demand!,
+    flat_dict,
+    signif_dict,
+    SimulationStalling,
+    validate_json,
+    validate_json_hydro,
+    validate_json_powermodels
 
 Reexport.@reexport using PowerModels, SDDP
 

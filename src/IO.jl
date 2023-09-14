@@ -1,5 +1,7 @@
-const hydro_schema_path = joinpath(dirname(@__FILE__), "jsonschema\\hydro.json")
-const powermodels_schema_path = joinpath(dirname(@__FILE__), "jsonschema\\PowerModels.json")
+const hydro_schema_path = joinpath(dirname(@__FILE__), "jsonschema", "hydro.json")
+const powermodels_schema_path = joinpath(
+    dirname(@__FILE__), "jsonschema", "PowerModels.json"
+)
 
 """
 Read hydro description json file.
