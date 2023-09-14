@@ -69,7 +69,7 @@ function build_graph(params::Dict)
     SDDP.add_edge(graph, 0 => 1, 1.0)
     for t in 2:params["stages"]
         SDDP.add_node(graph, t)
-        SDDP.add_edge(graph, t - 1 => t, params["discount_factor"])
+        SDDP.add_edge(graph, t - 1 => t, 1.0)
     end
     return graph
 end
@@ -160,7 +160,7 @@ function build_model(
         add_min_volume_violation_cost(sp, data)
 
         # Stage objective
-        set_objective(sp, data)
+        set_objective(sp, params, t)
 
         # # variable primal start
         JuMP.MOI.set.(sp, JuMP.MOI.VariablePrimalStart(), sp[:deficit], 0.0)

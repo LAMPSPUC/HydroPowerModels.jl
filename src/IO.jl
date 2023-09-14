@@ -119,7 +119,7 @@ function create_param(;
     setting=Dict("output" => Dict("branch_flows" => true, "duals" => true)),
     verbose=false,
     stage_hours=1,
-    discount_factor::Float64=1.0,
+    discount_factor::Float64=0.0,
 )
     params = Dict()
     params["stages"] = stages

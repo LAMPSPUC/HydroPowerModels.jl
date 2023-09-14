@@ -1,6 +1,6 @@
 """set objective"""
-function set_objective(sp, _::Dict)
-    @stageobjective(sp, sum(values(sp.ext[:cost])))
+function set_objective(sp, params::Dict, t::Int)
+    @stageobjective(sp, (1+params["discount_factor"])^(-t)*sum(values(sp.ext[:cost])))
 end
 
 """add generators cost to cost dict"""
