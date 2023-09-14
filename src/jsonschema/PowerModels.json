@@ -1,7 +1,5 @@
 {
     "type": "object",
-    "default": {},
-    "title": "Root Schema",
     "required": [
         "bus",
         "source_type",
@@ -17,16 +15,12 @@
     "properties": {
         "bus": {
             "type": "object",
-            "default": {},
-            "title": "The bus Schema",
             "required": [
                 "1"
             ],
             "properties": {
                 "1": {
                     "type": "object",
-                    "default": {},
-                    "title": "The 1 Schema",
                     "required": [
                         "bus_i",
                         "bus_type",
@@ -80,16 +74,12 @@
         },
         "gen": {
             "type": "object",
-            "default": {},
-            "title": "The gen Schema",
             "required": [
                 "1"
             ],
             "properties": {
                 "1": {
                     "type": "object",
-                    "default": {},
-                    "title": "The 1 Schema",
                     "required": [
                         "ncost",
                         "qc1max",
@@ -159,8 +149,6 @@
                         },
                         "cost": {
                             "type": "array",
-                            "default": [],
-                            "title": "The cost Schema",
                             "items": {
                                 "type": "integer"
                             }
@@ -192,16 +180,12 @@
         },
         "branch": {
             "type": "object",
-            "default": {},
-            "title": "The branch Schema",
             "required": [
                 "1"
             ],
             "properties": {
                 "1": {
                     "type": "object",
-                    "default": {},
-                    "title": "The 1 Schema",
                     "required": [
                         "br_r",
                         "rate_a",
@@ -220,14 +204,10 @@
                     ],
                     "properties": {
                         "br_r": {
-                            "type": "number",
-                            "default": 0.0,
-                            "title": "The br_r Schema"
+                            "type": "number"
                         },
                         "rate_a": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The rate_a Schema"
+                            "type": "integer"
                         },
                         "shift": {
                             "type": "integer"
@@ -280,16 +260,12 @@
         },
         "load": {
             "type": "object",
-            "default": {},
-            "title": "The load Schema",
             "required": [
                 "1"
             ],
             "properties": {
                 "1": {
                     "type": "object",
-                    "default": {},
-                    "title": "The 1 Schema",
                     "required": [
                         "load_bus",
                         "status",
