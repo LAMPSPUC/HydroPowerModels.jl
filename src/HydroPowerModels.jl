@@ -2,7 +2,7 @@ module HydroPowerModels
 
 using JuMP, PowerModels, SDDP
 using HypothesisTests, Statistics
-using JSON
+using JSON, JSONSchema
 using CSV
 using DataFrames
 using Reexport: Reexport
@@ -20,7 +20,14 @@ include("objective.jl")
 include("build_model.jl")
 
 export hydro_thermal_operation,
-    create_param, set_active_demand!, flat_dict, signif_dict, SimulationStalling
+    create_param,
+    set_active_demand!,
+    flat_dict,
+    signif_dict,
+    SimulationStalling,
+    validate_json,
+    validate_json_hydro,
+    validate_json_powermodels
 
 Reexport.@reexport using PowerModels, SDDP
 

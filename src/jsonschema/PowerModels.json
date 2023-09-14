@@ -1,0 +1,297 @@
+{
+    "type": "object",
+    "required": [
+        "bus",
+        "source_type",
+        "name",
+        "source_version",
+        "gen",
+        "branch",
+        "baseMVA",
+        "per_unit",
+        "cost_deficit",
+        "load"
+    ],
+    "properties": {
+        "bus": {
+            "type": "object",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "required": [
+                        "bus_i",
+                        "bus_type",
+                        "vmax",
+                        "area",
+                        "vmin",
+                        "index",
+                        "va",
+                        "vm",
+                        "base_kv"
+                    ],
+                    "properties": {
+                        "bus_i": {
+                            "type": "integer"
+                        },
+                        "bus_type": {
+                            "type": "integer"
+                        },
+                        "vmax": {
+                            "type": "number"
+                        },
+                        "area": {
+                            "type": "integer"
+                        },
+                        "vmin": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "va": {
+                            "type": "number"
+                        },
+                        "vm": {
+                            "type": "number"
+                        },
+                        "base_kv": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "source_type": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "source_version": {
+        },
+        "gen": {
+            "type": "object",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "required": [
+                        "ncost",
+                        "qc1max",
+                        "pg",
+                        "model",
+                        "shutdown",
+                        "startup",
+                        "qc2max",
+                        "qg",
+                        "gen_bus",
+                        "pmax",
+                        "vg",
+                        "mbase",
+                        "pc2",
+                        "index",
+                        "cost",
+                        "qmax",
+                        "gen_status",
+                        "qmin",
+                        "qc1min",
+                        "qc2min",
+                        "pc1",
+                        "pmin"
+                    ],
+                    "properties": {
+                        "ncost": {
+                            "type": "integer"
+                        },
+                        "qc1max": {
+                            "type": "number"
+                        },
+                        "pg": {
+                            "type": "number"
+                        },
+                        "model": {
+                            "type": "integer"
+                        },
+                        "shutdown": {
+                            "type": "number"
+                        },
+                        "startup": {
+                            "type": "number"
+                        },
+                        "qc2max": {
+                            "type": "number"
+                        },
+                        "qg": {
+                            "type": "number"
+                        },
+                        "gen_bus": {
+                            "type": "integer"
+                        },
+                        "pmax": {
+                            "type": "number"
+                        },
+                        "vg": {
+                            "type": "number"
+                        },
+                        "mbase": {
+                            "type": "number"
+                        },
+                        "pc2": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "cost": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        },
+                        "qmax": {
+                            "type": "number"
+                        },
+                        "gen_status": {
+                            "type": "integer"
+                        },
+                        "qmin": {
+                            "type": "number"
+                        },
+                        "qc1min": {
+                            "type": "number"
+                        },
+                        "qc2min": {
+                            "type": "number"
+                        },
+                        "pc1": {
+                            "type": "number"
+                        },
+                        "pmin": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "branch": {
+            "type": "object",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "required": [
+                        "br_r",
+                        "rate_a",
+                        "shift",
+                        "br_x",
+                        "b_fr",
+                        "f_bus",
+                        "br_status",
+                        "t_bus",
+                        "b_to",
+                        "index",
+                        "angmin",
+                        "angmax",
+                        "transformer",
+                        "tap"
+                    ],
+                    "properties": {
+                        "br_r": {
+                            "type": "number"
+                        },
+                        "rate_a": {
+                            "type": "integer"
+                        },
+                        "shift": {
+                            "type": "number"
+                        },
+                        "br_x": {
+                            "type": "number"
+                        },
+                        "b_fr": {
+                            "type": "number"
+                        },
+                        "f_bus": {
+                            "type": "integer"
+                        },
+                        "br_status": {
+                            "type": "integer"
+                        },
+                        "t_bus": {
+                            "type": "integer"
+                        },
+                        "b_to": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "angmin": {
+                            "type": "number"
+                        },
+                        "angmax": {
+                            "type": "number"
+                        },
+                        "transformer": {
+                            "type": "boolean"
+                        },
+                        "tap": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "baseMVA": {
+            "type": "number"
+        },
+        "per_unit": {
+            "type": "boolean"
+        },
+        "cost_deficit": {
+            "type": "number"
+        },
+        "load": {
+            "type": "object",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "required": [
+                        "load_bus",
+                        "status",
+                        "qd",
+                        "pd",
+                        "index"
+                    ],
+                    "properties": {
+                        "load_bus": {
+                            "type": "integer"
+                        },
+                        "status": {
+                            "type": "integer"
+                        },
+                        "qd": {
+                            "type": "number"
+                        },
+                        "pd": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

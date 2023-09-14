@@ -1,3 +1,8 @@
+const hydro_schema_path = joinpath(dirname(@__FILE__), "jsonschema", "hydro.json")
+const powermodels_schema_path = joinpath(
+    dirname(@__FILE__), "jsonschema", "PowerModels.json"
+)
+
 """
 Read hydro description json file.
 """
@@ -130,4 +135,41 @@ function create_param(;
     params["verbose"] = verbose
     params["setting"] = setting
     return params
+end
+
+"""
+    HydroPowerModels.validate_json(json_path::String, schema_path::String)
+
+Returns nothing if the json 'json_path' matchs the schema 'json_path', showns the errors otherwise.
+
+Parameters:
+-   json_path   : Path to json.
+-   schema_path : Path to schema.
+"""
+function validate_json(json_path::String, schema_path::String)
+    return validate(Schema(parse_file_json(schema_path)), parse_file_json(json_path))
+end
+
+"""
+    HydroPowerModels.validate_json_hydro(json_path::String)
+
+Returns nothing if the json 'json_path' matchs the hydro schema, showns the errors otherwise.
+
+Parameters:
+-   json_path   : Path to json.
+"""
+function validate_json_hydro(json_path::String)
+    return validate_json(json_path, hydro_schema_path)
+end
+
+"""
+    HydroPowerModels.validate_json_powermodels(json_path::String)
+
+Returns nothing if the json 'json_path' matchs the powermodels schema, showns the errors otherwise.
+
+Parameters:
+-   json_path   : Path to json.
+"""
+function validate_json_powermodels(json_path::String)
+    return validate_json(json_path, powermodels_schema_path)
 end
