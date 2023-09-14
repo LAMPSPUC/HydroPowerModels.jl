@@ -1,0 +1,321 @@
+{
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "bus",
+        "source_type",
+        "name",
+        "source_version",
+        "gen",
+        "branch",
+        "baseMVA",
+        "per_unit",
+        "cost_deficit",
+        "load"
+    ],
+    "properties": {
+        "bus": {
+            "type": "object",
+            "default": {},
+            "title": "The bus Schema",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The 1 Schema",
+                    "required": [
+                        "bus_i",
+                        "bus_type",
+                        "vmax",
+                        "area",
+                        "vmin",
+                        "index",
+                        "va",
+                        "vm",
+                        "base_kv"
+                    ],
+                    "properties": {
+                        "bus_i": {
+                            "type": "integer"
+                        },
+                        "bus_type": {
+                            "type": "integer"
+                        },
+                        "vmax": {
+                            "type": "number"
+                        },
+                        "area": {
+                            "type": "integer"
+                        },
+                        "vmin": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "va": {
+                            "type": "integer"
+                        },
+                        "vm": {
+                            "type": "integer"
+                        },
+                        "base_kv": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "source_type": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "source_version": {
+        },
+        "gen": {
+            "type": "object",
+            "default": {},
+            "title": "The gen Schema",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The 1 Schema",
+                    "required": [
+                        "ncost",
+                        "qc1max",
+                        "pg",
+                        "model",
+                        "shutdown",
+                        "startup",
+                        "qc2max",
+                        "qg",
+                        "gen_bus",
+                        "pmax",
+                        "vg",
+                        "mbase",
+                        "pc2",
+                        "index",
+                        "cost",
+                        "qmax",
+                        "gen_status",
+                        "qmin",
+                        "qc1min",
+                        "qc2min",
+                        "pc1",
+                        "pmin"
+                    ],
+                    "properties": {
+                        "ncost": {
+                            "type": "integer"
+                        },
+                        "qc1max": {
+                            "type": "integer"
+                        },
+                        "pg": {
+                            "type": "integer"
+                        },
+                        "model": {
+                            "type": "integer"
+                        },
+                        "shutdown": {
+                            "type": "integer"
+                        },
+                        "startup": {
+                            "type": "integer"
+                        },
+                        "qc2max": {
+                            "type": "integer"
+                        },
+                        "qg": {
+                            "type": "integer"
+                        },
+                        "gen_bus": {
+                            "type": "integer"
+                        },
+                        "pmax": {
+                            "type": "integer"
+                        },
+                        "vg": {
+                            "type": "integer"
+                        },
+                        "mbase": {
+                            "type": "integer"
+                        },
+                        "pc2": {
+                            "type": "integer"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "cost": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The cost Schema",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "qmax": {
+                            "type": "integer"
+                        },
+                        "gen_status": {
+                            "type": "integer"
+                        },
+                        "qmin": {
+                            "type": "integer"
+                        },
+                        "qc1min": {
+                            "type": "integer"
+                        },
+                        "qc2min": {
+                            "type": "integer"
+                        },
+                        "pc1": {
+                            "type": "integer"
+                        },
+                        "pmin": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "branch": {
+            "type": "object",
+            "default": {},
+            "title": "The branch Schema",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The 1 Schema",
+                    "required": [
+                        "br_r",
+                        "rate_a",
+                        "shift",
+                        "br_x",
+                        "b_fr",
+                        "f_bus",
+                        "br_status",
+                        "t_bus",
+                        "b_to",
+                        "index",
+                        "angmin",
+                        "angmax",
+                        "transformer",
+                        "tap"
+                    ],
+                    "properties": {
+                        "br_r": {
+                            "type": "number",
+                            "default": 0.0,
+                            "title": "The br_r Schema"
+                        },
+                        "rate_a": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The rate_a Schema"
+                        },
+                        "shift": {
+                            "type": "integer"
+                        },
+                        "br_x": {
+                            "type": "integer"
+                        },
+                        "b_fr": {
+                            "type": "number"
+                        },
+                        "f_bus": {
+                            "type": "integer"
+                        },
+                        "br_status": {
+                            "type": "integer"
+                        },
+                        "t_bus": {
+                            "type": "integer"
+                        },
+                        "b_to": {
+                            "type": "number"
+                        },
+                        "index": {
+                            "type": "integer"
+                        },
+                        "angmin": {
+                            "type": "number"
+                        },
+                        "angmax": {
+                            "type": "number"
+                        },
+                        "transformer": {
+                            "type": "boolean"
+                        },
+                        "tap": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "baseMVA": {
+            "type": "integer"
+        },
+        "per_unit": {
+            "type": "boolean"
+        },
+        "cost_deficit": {
+            "type": "integer"
+        },
+        "load": {
+            "type": "object",
+            "default": {},
+            "title": "The load Schema",
+            "required": [
+                "1"
+            ],
+            "properties": {
+                "1": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The 1 Schema",
+                    "required": [
+                        "load_bus",
+                        "status",
+                        "qd",
+                        "pd",
+                        "index"
+                    ],
+                    "properties": {
+                        "load_bus": {
+                            "type": "integer"
+                        },
+                        "status": {
+                            "type": "integer"
+                        },
+                        "qd": {
+                            "type": "integer"
+                        },
+                        "pd": {
+                            "type": "integer"
+                        },
+                        "index": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

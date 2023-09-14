@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "required": [
+        "Hydrogenerators"
+    ],
+    "properties": {
+        "Hydrogenerators": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "index",
+                    "index_grid",
+                    "max_volume",
+                    "min_volume",
+                    "max_turn",
+                    "min_turn",
+                    "initial_volume",
+                    "production_factor",
+                    "spill_cost",
+                    "minimal_outflow_violation_cost",
+                    "minimal_volume_violation_cost",
+                    "downstream_turn",
+                    "downstream_spill"
+                ],
+                "properties": {
+                    "index": {
+                        "type": "integer"
+                    },
+                    "index_grid": {
+                        "type": "integer"
+                    },
+                    "max_volume": {
+                        "type": "number"
+                    },
+                    "min_volume": {
+                        "type": "integer"
+                    },
+                    "max_turn": {
+                        "type": "integer"
+                    },
+                    "min_turn": {
+                        "type": "integer"
+                    },
+                    "initial_volume": {
+                        "type": "number"
+                    },
+                    "production_factor": {
+                        "type": "integer"
+                    },
+                    "spill_cost": {
+                        "type": "integer"
+                    },
+                    "minimal_outflow_violation_cost": {
+                        "type": "integer"
+                    },
+                    "minimal_volume_violation_cost": {
+                        "type": "integer"
+                    },
+                    "downstream_turn": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "downstream_spill": {
+                        "type": "array",
+                        "items": {}
+                    }
+                }
+            }
+        }
+    }
+}
