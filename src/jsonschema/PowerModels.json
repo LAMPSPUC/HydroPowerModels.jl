@@ -52,13 +52,13 @@
                             "type": "integer"
                         },
                         "va": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "vm": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "base_kv": {
-                            "type": "integer"
+                            "type": "number"
                         }
                     }
                 }
@@ -109,40 +109,40 @@
                             "type": "integer"
                         },
                         "qc1max": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "pg": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "model": {
                             "type": "integer"
                         },
                         "shutdown": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "startup": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "qc2max": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "qg": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "gen_bus": {
                             "type": "integer"
                         },
                         "pmax": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "vg": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "mbase": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "pc2": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "index": {
                             "type": "integer"
@@ -150,29 +150,29 @@
                         "cost": {
                             "type": "array",
                             "items": {
-                                "type": "integer"
+                                "type": "number"
                             }
                         },
                         "qmax": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "gen_status": {
                             "type": "integer"
                         },
                         "qmin": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "qc1min": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "qc2min": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "pc1": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "pmin": {
-                            "type": "integer"
+                            "type": "number"
                         }
                     }
                 }
@@ -210,10 +210,10 @@
                             "type": "integer"
                         },
                         "shift": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "br_x": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "b_fr": {
                             "type": "number"
@@ -243,20 +243,20 @@
                             "type": "boolean"
                         },
                         "tap": {
-                            "type": "integer"
+                            "type": "number"
                         }
                     }
                 }
             }
         },
         "baseMVA": {
-            "type": "integer"
+            "type": "number"
         },
         "per_unit": {
             "type": "boolean"
         },
         "cost_deficit": {
-            "type": "integer"
+            "type": "number"
         },
         "load": {
             "type": "object",
@@ -281,10 +281,10 @@
                             "type": "integer"
                         },
                         "qd": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "pd": {
-                            "type": "integer"
+                            "type": "number"
                         },
                         "index": {
                             "type": "integer"

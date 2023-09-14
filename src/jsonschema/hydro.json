@@ -34,28 +34,28 @@
                         "type": "number"
                     },
                     "min_volume": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "max_turn": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "min_turn": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "initial_volume": {
                         "type": "number"
                     },
                     "production_factor": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "spill_cost": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "minimal_outflow_violation_cost": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "minimal_volume_violation_cost": {
-                        "type": "integer"
+                        "type": "number"
                     },
                     "downstream_turn": {
                         "type": "array",
