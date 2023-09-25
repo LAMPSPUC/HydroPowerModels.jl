@@ -131,7 +131,7 @@ function build_model(
         # resevoir variables
         variable_volume(sp, data)
         variable_min_volume_violation(sp, data)
-        constraint_min_volume_violation(sp, data)
+        constraint_min_volume_violation(sp, data, t == params["stages"])
 
         # outflow and spillage variables
         variable_outflow(sp, data)

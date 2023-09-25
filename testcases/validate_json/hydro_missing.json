@@ -6,6 +6,7 @@
         "min_volume":0,
         "min_turn":0,
         "initial_volume":0.18,
+        "final_volume":0.0,
         "production_factor":1,
         "spill_cost":0,
         "minimal_outflow_violation_cost":0,
