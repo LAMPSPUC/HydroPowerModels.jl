@@ -96,7 +96,7 @@ function constraint_min_volume_violation(sp, data::Dict)
         sp,
         min_volume_violation_bound[r=1:data["hydro"]["nHyd"]],
         sp[:min_volume_violation][r] >=
-            (data["hydro"]["Hydrogenerators"][r]["min_turn"] - sp[:reservoir][r].out)
+            (data["hydro"]["Hydrogenerators"][r]["min_volume"] - sp[:reservoir][r].out)
     )
     return nothing
 end
