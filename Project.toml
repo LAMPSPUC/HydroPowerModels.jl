@@ -1,7 +1,7 @@
 name = "HydroPowerModels"
 uuid = "1bf2e10f-7293-4f36-bafb-f7584ca75eae"
 authors = ["andrewrosemberg <andrewrosemberg@gmail.com>"]
-version = "0.5.2"
+version = "0.5.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
