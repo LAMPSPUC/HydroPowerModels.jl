@@ -91,12 +91,15 @@ function constraint_min_outflow_violation(sp, data::Dict)
 end
 
 """creates the constraint that imposes the violation for unilateral violation for volume"""
-function constraint_min_volume_violation(sp, data::Dict)
+function constraint_min_volume_violation(sp, data::Dict, last_stage::Bool)
     @constraint(
         sp,
         min_volume_violation_bound[r=1:data["hydro"]["nHyd"]],
         sp[:min_volume_violation][r] >=
-            (data["hydro"]["Hydrogenerators"][r]["min_volume"] - sp[:reservoir][r].out)
+            (last_stage ? 
+            max(data["hydro"]["Hydrogenerators"][r]["min_volume"], data["hydro"]["Hydrogenerators"][r]["final_volume"]) :
+            data["hydro"]["Hydrogenerators"][r]["min_volume"]) 
+            - sp[:reservoir][r].out
     )
     return nothing
 end

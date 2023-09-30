@@ -16,6 +16,7 @@
                     "max_turn",
                     "min_turn",
                     "initial_volume",
+                    "final_volume",
                     "production_factor",
                     "spill_cost",
                     "minimal_outflow_violation_cost",
@@ -43,6 +44,9 @@
                         "type": "number"
                     },
                     "initial_volume": {
+                        "type": "number"
+                    },
+                    "final_volume": {
                         "type": "number"
                     },
                     "production_factor": {

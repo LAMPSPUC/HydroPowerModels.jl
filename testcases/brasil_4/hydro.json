@@ -12,6 +12,7 @@
             "index": 1,
             "min_turn": 0,
             "initial_volume": 429.94368,
+            "final_volume": 0.0,
             "max_volume": 722.58336,
             "downstream_turn": []
         },
@@ -27,6 +28,7 @@
             "index": 2,
             "min_turn": 0,
             "initial_volume": 41.52636,
+            "final_volume": 0.0,
             "max_volume": 70.62192,
             "downstream_turn": []
         },
@@ -42,6 +44,7 @@
             "index": 3,
             "min_turn": 0,
             "initial_volume": 106.37352,
+            "final_volume": 0.0,
             "max_volume": 186.50196,
             "downstream_turn": []
         },
@@ -57,6 +60,7 @@
             "index": 4,
             "min_turn": 0,
             "initial_volume": 23.937839999999998,
+            "final_volume": 0.0,
             "max_volume": 45.647639999999996,
             "downstream_turn": []
         }

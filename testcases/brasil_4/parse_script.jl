@@ -73,6 +73,7 @@ hydroarray = [
         max_turn=hydro_pre[:Max_discharge][idx],
         min_turn=0,
         initial_volume=hydro_pre[:Init_store][idx] * 0.0036,
+        final_volume=0.0,
         production_factor=1,
         spill_cost=0,
         minimal_outflow_violation_cost=0,
