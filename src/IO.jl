@@ -86,45 +86,56 @@ end
 
 """
     create_param(;stages::Int = 1,
-        model_constructor_grid = DCPPowerModel,
-        model_constructor_grid_backward = model_constructor_grid,
-        model_constructor_grid_forward = model_constructor_grid_backward,
-        post_method = PowerModels.build_opf,
-        optimizer = GLPK.Optimizer,
-        optimizer_backward = optimizer,
-        optimizer_forward = optimizer_backward,
-        setting = Dict("output" => Dict("branch_flows" => true,"duals" => true)),
-        verbose = false,
-        stage_hours = 1)
+        model_constructor_grid::Type = DCPPowerModel,
+        model_constructor_grid_backward::Type = model_constructor_grid,
+        model_constructor_grid_forward::Type = model_constructor_grid_backward,
+        post_method::Function = PowerModels.build_opf,
+        optimizer::DataType = GLPK.Optimizer,
+        optimizer_backward::DataType = optimizer,
+        optimizer_forward::DataType = optimizer_backward,
+        setting::Dict = Dict("output" => Dict("branch_flows" => true,"duals" => true)),
+        verbose::Bool = false,
+        stage_hours::Int = 1,
+        discount_factor::Float64 = 1.0,
+        cycle_probability::Float64 = 0.0)
 
 Create Parameters Dictionary.
 
 Keywords are:
--   stages::Int             : Number of stages.
--   model_constructor_grid  : Network formulation (Types from <https://github.com/lanl-ansi/PowerModels.jl>).
--   optimizer               : Optimizer factory (<http://www.juliaopt.org/JuMP.jl/v0.19.0/solvers/>).
--   setting                 : PowerModels settings (<https://github.com/lanl-ansi/PowerModels.jl/blob/e28644bf85232a5322adeeb847c0d18b7ff4f235/src/core/base.jl#L6-L34>)) .
--   verbose                 : Boolean to indicate information prints.
--   stage_hours             : Number of hours in each stage.
+-   stages::Int                      : Number of stages.
+-   model_constructor_grid           : Default Network formulation (Types from <https://github.com/lanl-ansi/PowerModels.jl>).
+-   model_constructor_grid_backward  : Network formulation used in backward (Types from <https://github.com/lanl-ansi/PowerModels.jl>).
+-   model_constructor_grid_forward   : Network formulation used in forward (Types from <https://github.com/lanl-ansi/PowerModels.jl>).
+-   post_method                      : The post method.
+-   optimizer                        : Default optimizer factory (<http://www.juliaopt.org/JuMP.jl/v0.19.0/solvers/>).
+-   optimizer_backward               : Optimizer factory used in backward (<http://www.juliaopt.org/JuMP.jl/v0.19.0/solvers/>).
+-   optimizer_forward                : Optimizer factory used in forward(<http://www.juliaopt.org/JuMP.jl/v0.19.0/solvers/>).
+-   setting                          : PowerModels settings (<https://github.com/lanl-ansi/PowerModels.jl/blob/e28644bf85232a5322adeeb847c0d18b7ff4f235/src/core/base.jl#L6-L34>)) .
+-   verbose                          : Boolean to indicate information prints.
+-   stage_hours                      : Number of hours in each stage.
+-   discount_factor                  : The discount factor.
+-   cycle_probability                : Probability of restart the horizon.
 """
 function create_param(;
     stages::Int=1,
-    model_constructor_grid=DCPPowerModel,
-    model_constructor_grid_backward=model_constructor_grid,
-    model_constructor_grid_forward=model_constructor_grid_backward,
-    post_method=PowerModels.build_opf,
-    optimizer=GLPK.Optimizer,
-    optimizer_backward=optimizer,
-    optimizer_forward=optimizer_backward,
-    setting=Dict("output" => Dict("branch_flows" => true, "duals" => true)),
-    verbose=false,
-    stage_hours=1,
+    model_constructor_grid::Type=DCPPowerModel,
+    model_constructor_grid_backward::Type=model_constructor_grid,
+    model_constructor_grid_forward::Type=model_constructor_grid_backward,
+    post_method::Function=PowerModels.build_opf,
+    optimizer::DataType=GLPK.Optimizer,
+    optimizer_backward::DataType=optimizer,
+    optimizer_forward::DataType=optimizer_backward,
+    setting::Dict=Dict("output" => Dict("branch_flows" => true, "duals" => true)),
+    verbose::Bool=false,
+    stage_hours::Int=1,
     discount_factor::Float64=1.0,
+    cycle_probability::Float64=0.0,
 )
     params = Dict()
     params["stages"] = stages
     params["stage_hours"] = stage_hours
     params["discount_factor"] = discount_factor
+    params["cycle_probability"] = cycle_probability
     params["model_constructor_grid"] = model_constructor_grid
     params["model_constructor_grid_backward"] = model_constructor_grid_backward
     params["model_constructor_grid_forward"] = model_constructor_grid_forward
