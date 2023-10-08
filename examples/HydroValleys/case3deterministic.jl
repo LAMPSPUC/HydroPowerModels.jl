@@ -59,6 +59,35 @@ results = HydroPowerModels.simulate(m, 1);
 )
 
 ########################################
+#       Build Model: infinite horizon
+########################################
+params_cycle_probability = create_param(;
+    stages=12,
+    model_constructor_grid=DCPPowerModel,
+    post_method=PowerModels.build_opf,
+    optimizer=GLPK.Optimizer,
+    cycle_probability=0.6,
+);
+m = hydro_thermal_operation(alldata, params_cycle_probability)
+
+########################################
+#       Solve
+########################################
+HydroPowerModels.train(m; iteration_limit=60);
+
+########################################
+#       Simulation
+########################################
+results_cycle_probability = HydroPowerModels.simulate(m, 1);
+
+########################################
+#       Test
+########################################
+# 1/(1-0.6) = 2.5 > 2
+@test results_cycle_probability[:simulations][1][1][:objective] >
+    2 * results[:simulations][1][1][:objective]
+
+########################################
 #       Build Model: min final volume violation
 ########################################
 for data in alldata
@@ -81,7 +110,9 @@ results = HydroPowerModels.simulate(m, 1);
 ########################################
 #       Test
 ########################################
-@test results[:simulations][1][end][:reservoirs][:reservoir][1].out >= 0.4
+@test isapprox(
+    results[:simulations][1][end][:reservoirs][:reservoir][1].out, 0.4, atol=1e-2
+)
 
 ########################################
 #       Build Model: min vol violation
@@ -107,7 +138,9 @@ results = HydroPowerModels.simulate(m, 1);
 ########################################
 #       Test
 ########################################
-@test results[:simulations][1][end][:reservoirs][:reservoir][1].out >= 0.2
+@test isapprox(
+    results[:simulations][1][end][:reservoirs][:reservoir][1].out, 0.2, atol=1e-2
+)
 
 ########################################
 #       Build Model: min turb violation

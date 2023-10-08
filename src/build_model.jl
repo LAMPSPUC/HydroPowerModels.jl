@@ -71,6 +71,9 @@ function build_graph(params::Dict)
         SDDP.add_node(graph, t)
         SDDP.add_edge(graph, t - 1 => t, params["discount_factor"])
     end
+    if params["cycle_probability"] > 0.0
+        SDDP.add_edge(graph, params["stages"] => 1, params["cycle_probability"])
+    end
     return graph
 end
 

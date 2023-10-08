@@ -96,10 +96,16 @@ function constraint_min_volume_violation(sp, data::Dict, last_stage::Bool)
         sp,
         min_volume_violation_bound[r=1:data["hydro"]["nHyd"]],
         sp[:min_volume_violation][r] >=
-            (last_stage ? 
-            max(data["hydro"]["Hydrogenerators"][r]["min_volume"], data["hydro"]["Hydrogenerators"][r]["final_volume"]) :
-            data["hydro"]["Hydrogenerators"][r]["min_volume"]) 
-            - sp[:reservoir][r].out
+            (
+            if last_stage
+                max(
+                data["hydro"]["Hydrogenerators"][r]["min_volume"],
+                data["hydro"]["Hydrogenerators"][r]["final_volume"],
+            )
+            else
+                data["hydro"]["Hydrogenerators"][r]["min_volume"]
+            end
+        ) - sp[:reservoir][r].out
     )
     return nothing
 end
