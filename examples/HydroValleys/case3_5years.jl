@@ -23,22 +23,16 @@ using HydroPowerModels
 
 #' ## Initialization
 #+ results =  "hidden"
-if !@isdefined plot_bool
-    plot_bool = true
-end
 using Random
 seed = 1221
 
 #' ## Load Case Specifications
 
 #' Data
-alldata = HydroPowerModels.parse_folder(joinpath(WEAVE_ARGS[:testcases_dir], "case3"));
-
-#' Plot power grid graph
-if plot_bool == true
-    Random.seed!(seed)
-    HydroPowerModels.plot_grid(alldata[1]; has_nodelabel=false)
-end
+case = "case3"
+current_dir = dirname(@__FILE__)
+case_dir = joinpath(abspath(joinpath(current_dir,"..\\..")),"testcases")
+alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 
 #' Parameters
 params = create_param(;
@@ -65,35 +59,7 @@ end_time = time() - start_time
 #' Termination Status and solve time (s)
 (SDDP.termination_status(m.forward_graph), end_time)
 
-#' Bounds
-if plot_bool == true
-    HydroPowerModels.plot_bound(m)
-end
-
 #' ## Simulation
 using Random: Random
 Random.seed!(seed)
 results = HydroPowerModels.simulate(m, 100);
-results
-
-#' ## Testing Results
-using Test
-#' Bound
-@test isapprox(SDDP.calculate_bound(m.forward_graph), 59357.12, atol=10)
-#' Number of Simulations
-@test length(results[:simulations]) == 100
-
-#' ## Plot Aggregated Results
-if plot_bool == true
-    HydroPowerModels.plot_aggregated_results(results)
-end
-
-#' # Annex 1: Case Summary
-if plot_bool == true
-    PowerModels.print_summary(alldata[1]["powersystem"])
-end
-
-#' # Annex 2: Plot Results
-if plot_bool == true
-    HydroPowerModels.plotresults(results)
-end

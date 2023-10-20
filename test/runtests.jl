@@ -1,12 +1,9 @@
 using HydroPowerModels, Test
 using JuMP, PowerModels, SDDP
 
-plot_bool = false
+testcases_dir = dirname(@__FILE__)
 
-testcases_dir = joinpath(dirname(dirname(@__FILE__)), "testcases")
-WEAVE_ARGS = Dict(:testcases_dir => testcases_dir)
-
-include("hydrovalleymodel.jl")
-include("IO.jl")
-include("variables.jl")
-include("examples.jl")
+include(joinpath(testcases_dir,"hydrovalleymodel.jl"))
+include(joinpath(testcases_dir,"IO.jl"))
+include(joinpath(testcases_dir,"variables.jl"))
+include(joinpath(testcases_dir,"examples.jl"))

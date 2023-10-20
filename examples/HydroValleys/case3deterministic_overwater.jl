@@ -4,10 +4,10 @@ using HydroPowerModels
 ########################################
 #       Load Case
 ########################################
-testcases_dir = joinpath(dirname(dirname(dirname(@__FILE__))), "testcases")
-alldata = HydroPowerModels.parse_folder(
-    joinpath(testcases_dir, "case3deterministic_overwater")
-)
+case = "case3deterministic_overwater"
+current_dir = dirname(@__FILE__)
+case_dir = joinpath(abspath(joinpath(current_dir,"..\\..")),"testcases")
+alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 
 ########################################
 #       Set Parameters
