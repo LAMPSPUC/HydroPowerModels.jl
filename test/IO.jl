@@ -1,5 +1,7 @@
 using GLPK
 
+dir = joinpath(abspath(joinpath(dirname(@__FILE__), "..")), "testcases")
+
 @testset "IO" begin
     @testset "Input parameters" begin
         optimizer = GLPK.Optimizer
@@ -18,23 +20,23 @@ using GLPK
 
     @testset "Validate Json" begin
         @test isnothing(
-            validate_json_hydro(joinpath(testcases_dir, "validate_json", "hydro_correct.json"))
+            validate_json_hydro(joinpath(dir, "validate_json", "hydro_correct.json"))
         )
         @test !isnothing(
-            validate_json_hydro(joinpath(testcases_dir, "validate_json", "hydro_missing.json"))
+            validate_json_hydro(joinpath(dir, "validate_json", "hydro_missing.json"))
         )
         @test !isnothing(
-            validate_json_hydro(joinpath(testcases_dir, "validate_json", "hydro_type.json"))
+            validate_json_hydro(joinpath(dir, "validate_json", "hydro_type.json"))
         )
 
         @test isnothing(
-            validate_json_powermodels(joinpath(testcases_dir, "validate_json", "powermodels_correct.json"))
+            validate_json_powermodels(joinpath(dir, "validate_json", "powermodels_correct.json"))
         )
         @test !isnothing(
-            validate_json_powermodels(joinpath(testcases_dir, "validate_json", "powermodels_missing.json"))
+            validate_json_powermodels(joinpath(dir, "validate_json", "powermodels_missing.json"))
         )
         @test !isnothing(
-            validate_json_powermodels(joinpath(testcases_dir, "validate_json", "powermodels_type.json"))
+            validate_json_powermodels(joinpath(dir, "validate_json", "powermodels_type.json"))
         )
     end
 end

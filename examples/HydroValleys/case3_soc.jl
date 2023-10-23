@@ -33,20 +33,23 @@ seed = 1221
 #' ## Load Case Specifications
 
 #' Data
-alldata = HydroPowerModels.parse_folder(joinpath(WEAVE_ARGS[:testcases_dir], "case3"));
+case = "case3"
+current_dir = dirname(dirname(dirname(@__FILE__)))
+case_dir = joinpath(current_dir, "testcases")
+alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 
 #' Plot power grid graph
 if plot_bool == true
     Random.seed!(seed)
-    HydroPowerModels.plot_grid(alldata[1]; has_nodelabel=false)
+    HydroPowerModels.plot_grid(alldata[1]; has_nodelabel = false)
 end
 
 #' Parameters
 params = create_param(;
-    stages=12,
-    model_constructor_grid=SOCWRConicPowerModel,
-    post_method=PowerModels.build_opf,
-    optimizer=ECOS.Optimizer,
+    stages = 12,
+    model_constructor_grid = SOCWRConicPowerModel,
+    post_method = PowerModels.build_opf,
+    optimizer = ECOS.Optimizer,
 )
 
 #' ## Build Model
@@ -58,8 +61,8 @@ m = hydro_thermal_operation(alldata, params);
 start_time = time()
 HydroPowerModels.train(
     m;
-    iteration_limit=100,
-    stopping_rules=[SDDP.Statistical(; num_replications=20, iteration_period=20)],
+    iteration_limit = 100,
+    stopping_rules = [SDDP.Statistical(; num_replications = 20, iteration_period = 20)],
 )
 end_time = time() - start_time
 
@@ -81,7 +84,7 @@ results = HydroPowerModels.simulate(m, 100);
 using Test
 #' Bound
 #+ results =  "hidden"
-@test isapprox(SDDP.calculate_bound(m.forward_graph), 11637.76, atol=10)
+@test isapprox(SDDP.calculate_bound(m.forward_graph), 11637.76, atol = 10)
 #' Number of Simulations
 #+ results =  "hidden"
 @test length(results[:simulations]) == 100
