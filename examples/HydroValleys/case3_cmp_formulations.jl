@@ -33,8 +33,10 @@ using Ipopt, GLPK
 using HydroPowerModels
 
 #' ## Load Case Specifications
-testcases_dir = joinpath(dirname(dirname(dirname(@__FILE__))), "testcases")
-data = HydroPowerModels.parse_folder(joinpath(testcases_dir, "case3"))
+case = "case3"
+current_dir = dirname(dirname(dirname(@__FILE__)))
+case_dir = joinpath(current_dir, "testcases")
+alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 
 #' ## Results Dict
 dcp_stats = Dict()
@@ -44,17 +46,17 @@ dcp_stats = Dict()
 #' ## Parameters
 
 params = create_param(;
-    stages=12,
-    model_constructor_grid=DCPPowerModel,
-    post_method=PowerModels.build_opf,
-    optimizer=GLPK.Optimizer,
+    stages = 12,
+    model_constructor_grid = DCPPowerModel,
+    post_method = PowerModels.build_opf,
+    optimizer = GLPK.Optimizer,
 )
 
 #' ## Build Model
 m = hydro_thermal_operation(data, params);
 
 #' ## Solve
-HydroPowerModels.train(m; iteration_limit=60);
+HydroPowerModels.train(m; iteration_limit = 60);
 
 #' ## Simulation
 using Random: Random
@@ -69,17 +71,17 @@ dcp_stats["DC"] = flat_dict(HydroPowerModels.descriptivestatistics_results(resul
 #' ## Parameters
 
 params = create_param(;
-    stages=12,
-    model_constructor_grid=SOCWRPowerModel,
-    post_method=PowerModels.build_opf,
-    optimizer=IpoptSolver(; tol=1e-6),
+    stages = 12,
+    model_constructor_grid = SOCWRPowerModel,
+    post_method = PowerModels.build_opf,
+    optimizer = IpoptSolver(; tol = 1e-6),
 )
 
 #' ## Build Model
 m = hydro_thermal_operation(data, params);
 
 #' ## Solve
-HydroPowerModels.train(m; iteration_limit=60);
+HydroPowerModels.train(m; iteration_limit = 60);
 
 #' ## Simulation
 using Random: Random
@@ -94,17 +96,17 @@ dcp_stats["SOC"] = flat_dict(HydroPowerModels.descriptivestatistics_results(resu
 #' ## Parameters
 
 params = create_param(;
-    stages=12,
-    model_constructor_grid=ACPPowerModel,
-    post_method=PowerModels.build_opf,
-    optimizer=IpoptSolver(; tol=1e-6),
+    stages = 12,
+    model_constructor_grid = ACPPowerModel,
+    post_method = PowerModels.build_opf,
+    optimizer = IpoptSolver(; tol = 1e-6),
 )
 
 #' ## Build Model
 m = hydro_thermal_operation(data, params);
 
 #' ## Solve
-HydroPowerModels.train(m; iteration_limit=60);
+HydroPowerModels.train(m; iteration_limit = 60);
 
 #' ## Simulation
 using Random: Random
@@ -120,13 +122,13 @@ using DataFrames
 using Base.Markdown
 
 str_ac = html(
-    latexify(DataFrame(signif_dict(dcp_stats["AC"], 2)); env=:mdtable, latex=false)
+    latexify(DataFrame(signif_dict(dcp_stats["AC"], 2)); env = :mdtable, latex = false),
 );
 str_soc = html(
-    latexify(DataFrame(signif_dict(dcp_stats["SOC"], 2)); env=:mdtable, latex=false)
+    latexify(DataFrame(signif_dict(dcp_stats["SOC"], 2)); env = :mdtable, latex = false),
 );
 str_dc = html(
-    latexify(DataFrame(signif_dict(dcp_stats["DC"], 2)); env=:mdtable, latex=false)
+    latexify(DataFrame(signif_dict(dcp_stats["DC"], 2)); env = :mdtable, latex = false),
 );
 
 results_str = """

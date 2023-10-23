@@ -29,16 +29,16 @@ seed = 1221
 
 #' Data
 case = "case3"
-current_dir = dirname(@__FILE__)
-case_dir = joinpath(abspath(joinpath(current_dir,"..\\..")),"testcases")
+current_dir = dirname(dirname(dirname(@__FILE__)))
+case_dir = joinpath(current_dir, "testcases")
 alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 
 #' Parameters
 params = create_param(;
-    stages=12,
-    model_constructor_grid=DCPPowerModel,
-    post_method=PowerModels.build_opf,
-    optimizer=GLPK.Optimizer,
+    stages = 12,
+    model_constructor_grid = DCPPowerModel,
+    post_method = PowerModels.build_opf,
+    optimizer = GLPK.Optimizer,
 );
 
 #' ## Build Model
@@ -51,8 +51,8 @@ Random.seed!(seed)
 start_time = time()
 HydroPowerModels.train(
     m;
-    iteration_limit=100,
-    stopping_rules=[SDDP.Statistical(; num_replications=20, iteration_period=20)],
+    iteration_limit = 100,
+    stopping_rules = [SDDP.Statistical(; num_replications = 20, iteration_period = 20)],
 );
 end_time = time() - start_time
 
