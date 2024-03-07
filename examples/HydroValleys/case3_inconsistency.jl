@@ -17,7 +17,7 @@
 #' # Case
 
 #' ## Importing package and optimizer
-using GLPK
+using HiGHS
 using Ipopt
 using HydroPowerModels
 
@@ -40,8 +40,9 @@ params = create_param(;
     model_constructor_grid = DCPPowerModel,
     model_constructor_grid_forward = ACPPowerModel,
     post_method = PowerModels.build_opf,
-    optimizer = GLPK.Optimizer,
-    optimizer_forward = Ipopt.Optimizer,
+    optimizer = HiGHS.Optimizer,
+    optimizer_forward = optimizer_with_attributes(Ipopt.Optimizer, "tol" => 1e-6, "mu_init"=>1e-4, "max_iter" => 6000),
+    stage_hours = 24 * 30 # To Help numerical issues in IPOPT
 );
 
 #' ## Build Model

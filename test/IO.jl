@@ -1,10 +1,10 @@
-using GLPK
+using HiGHS
 
 dir = joinpath(abspath(joinpath(dirname(@__FILE__), "..")), "testcases")
 
 @testset "IO" begin
     @testset "Input parameters" begin
-        optimizer = GLPK.Optimizer
+        optimizer = HiGHS.Optimizer
         params = create_param(;
             stages=3,
             model_constructor_grid=DCPPowerModel,

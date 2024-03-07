@@ -1,4 +1,4 @@
-using GLPK
+using HiGHS
 
 @testset "Variables" begin
     @testset "@variable" begin
@@ -34,7 +34,7 @@ using GLPK
         m = SDDP.LinearPolicyGraph(;
             sense=:Min,
             stages=1,
-            optimizer=GLPK.Optimizer,
+            optimizer=HiGHS.Optimizer,
             lower_bound=0.0,
             direct_mode=false,
         ) do sp, t
