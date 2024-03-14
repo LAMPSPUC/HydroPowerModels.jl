@@ -1,4 +1,4 @@
-using GLPK
+using HiGHS
 using HydroPowerModels
 
 ########################################
@@ -13,12 +13,12 @@ alldata = HydroPowerModels.parse_folder(joinpath(case_dir, case));
 #       Set Parameters
 ########################################
 # model_constructor_grid may be for example: ACPPowerModel or DCPPowerModel
-# optimizer may be for example: IpoptSolver(tol=1e-6) or GLPK.Optimizer
+# optimizer may be for example: IpoptSolver(tol=1e-6) or HiGHS.Optimizer
 params = create_param(;
     stages = 12,
     model_constructor_grid = DCPPowerModel,
     post_method = PowerModels.build_opf,
-    optimizer = GLPK.Optimizer,
+    optimizer = HiGHS.Optimizer,
 );
 
 ########################################

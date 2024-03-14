@@ -17,7 +17,7 @@
 #' # Case
 
 #' ## Importing package and optimizer
-using GLPK
+using HiGHS
 using HydroPowerModels
 
 #' ## Initialization
@@ -38,7 +38,7 @@ params = create_param(;
     stages = 12,
     model_constructor_grid = DCPPowerModel,
     post_method = PowerModels.build_opf,
-    optimizer = GLPK.Optimizer,
+    optimizer = HiGHS.Optimizer,
 );
 
 #' ## Build Model
