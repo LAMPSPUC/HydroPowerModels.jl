@@ -13,8 +13,8 @@ options
 subproblem structure
   VariableRef                             : [20, 20]
   AffExpr in MOI.EqualTo{Float64}         : [9, 9]
-  AffExpr in MOI.GreaterThan{Float64}     : [5, 5]
-  AffExpr in MOI.LessThan{Float64}        : [3, 3]
+  AffExpr in MOI.GreaterThan{Float64}     : [2, 2]
+  AffExpr in MOI.Interval{Float64}        : [3, 3]
   VariableRef in MOI.GreaterThan{Float64} : [15, 15]
   VariableRef in MOI.LessThan{Float64}    : [8, 9]
 numerical stability report
@@ -25,14 +25,14 @@ numerical stability report
 -------------------------------------------------------------------
  iteration    simulation      bound        time (s)     solves  pid
 -------------------------------------------------------------------
-         1   1.551194e+04  6.015879e+03  6.450561e+00        48   1
-        20   1.300000e+04  1.133943e+04  7.424557e+00       960   1
+         1   1.551194e+04  6.015879e+03  3.721491e+00        48   1
+        20   1.300000e+04  1.133667e+04  4.370950e+00       960   1
 -------------------------------------------------------------------
 status         : statistical
-total time (s) : 7.424557e+00
+total time (s) : 4.370950e+00
 total solves   : 960
-best bound     :  1.133943e+04
-simulation ci  :  1.166454e+04 ± 8.542117e+02
+best bound     :  1.133667e+04
+simulation ci  :  1.166137e+04 ± 8.401270e+02
 numeric issues : 0
 -------------------------------------------------------------------
 
@@ -51,8 +51,8 @@ options
 subproblem structure
   VariableRef                             : [20, 20]
   AffExpr in MOI.EqualTo{Float64}         : [9, 9]
-  AffExpr in MOI.GreaterThan{Float64}     : [5, 5]
-  AffExpr in MOI.LessThan{Float64}        : [3, 3]
+  AffExpr in MOI.GreaterThan{Float64}     : [2, 2]
+  AffExpr in MOI.Interval{Float64}        : [3, 3]
   VariableRef in MOI.GreaterThan{Float64} : [15, 15]
   VariableRef in MOI.LessThan{Float64}    : [8, 9]
 numerical stability report
@@ -63,15 +63,63 @@ numerical stability report
 -------------------------------------------------------------------
  iteration    simulation      bound        time (s)     solves  pid
 -------------------------------------------------------------------
-         1   6.630820e+04  3.066487e+04  3.183699e-02       240   1
-        65   6.127325e+04  5.937094e+04  1.044742e+00     15600   1
-        80   6.260000e+04  5.937938e+04  1.310715e+00     19200   1
+         1   6.951833e+04  3.066487e+04  7.530713e-02       240   1
+        27   6.310000e+04  5.932887e+04  1.112618e+00      6480   1
+        51   5.946038e+04  5.936563e+04  2.133038e+00     12240   1
+        74   6.070000e+04  5.938325e+04  3.155765e+00     17760   1
+        80   5.730797e+04  5.938765e+04  3.427667e+00     19200   1
 -------------------------------------------------------------------
 status         : statistical
-total time (s) : 1.310715e+00
+total time (s) : 3.427667e+00
 total solves   : 19200
-best bound     :  5.937938e+04
-simulation ci  :  6.010031e+04 ± 9.885166e+02
+best bound     :  5.938765e+04
+simulation ci  :  6.059976e+04 ± 9.167521e+02
+numeric issues : 0
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+         SDDP.jl (c) Oscar Dowson and contributors, 2017-23
+-------------------------------------------------------------------
+problem
+  nodes           : 12
+  state variables : 1
+  scenarios       : 5.31441e+05
+  existing cuts   : false
+options
+  solver          : serial mode
+  risk measure    : SDDP.Expectation()
+  sampling scheme : SDDP.InSampleMonteCarlo
+subproblem structure
+  VariableRef                             : [35, 35]
+  AffExpr in MOI.EqualTo{Float64}         : [9, 9]
+  AffExpr in MOI.GreaterThan{Float64}     : [2, 2]
+  AffExpr in MOI.Interval{Float64}        : [3, 3]
+  NonlinearExpr in MOI.EqualTo{Float64}   : [12, 12]
+  QuadExpr in MOI.LessThan{Float64}       : [6, 6]
+  VariableRef in MOI.GreaterThan{Float64} : [30, 30]
+  VariableRef in MOI.LessThan{Float64}    : [23, 24]
+numerical stability report
+  matrix range     [4e-03, 1e+02]
+  objective range  [1e+00, 1e+05]
+  bounds range     [2e-01, 1e+02]
+  rhs range        [6e-02, 1e+00]
+-------------------------------------------------------------------
+ iteration    simulation      bound        time (s)     solves  pid
+-------------------------------------------------------------------
+         1   1.679023e+04  8.290916e+03  2.152395e+00        48   1
+         3   1.123735e+04  1.057791e+04  3.378390e+00       144   1
+         5   1.881847e+04  1.112048e+04  4.639537e+00       240   1
+         7   1.006776e+04  1.183553e+04  6.033555e+00       336   1
+         9   1.236128e+04  1.192045e+04  7.332341e+00       432   1
+        11   1.512306e+04  1.194585e+04  8.632726e+00       528   1
+        19   9.882456e+03  1.201446e+04  1.412933e+01       912   1
+        20   1.345203e+04  1.201859e+04  1.479930e+01       960   1
+-------------------------------------------------------------------
+status         : statistical
+total time (s) : 1.479930e+01
+total solves   : 960
+best bound     :  1.201859e+04
+simulation ci  :  1.367887e+04 ± 1.276744e+03
 numeric issues : 0
 -------------------------------------------------------------------
 

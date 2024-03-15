@@ -685,7 +685,7 @@ div.title {text-align: center;}
 
 
 <pre class='hljl'>
-<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>GLPK</span><span class='hljl-t'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>HiGHS</span><span class='hljl-t'>
 </span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>HydroPowerModels</span>
 </pre>
 
@@ -695,10 +695,7 @@ div.title {text-align: center;}
 
 
 <pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-oB'>!</span><span class='hljl-nd'>@isdefined</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'>
-    </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span><span class='hljl-t'>
-</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span><span class='hljl-t'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span><span class='hljl-t'>
 </span><span class='hljl-n'>seed</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1221</span>
 </pre>
 
@@ -710,25 +707,12 @@ div.title {text-align: center;}
 
 
 <pre class='hljl'>
-<span class='hljl-n'>alldata</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>parse_folder</span><span class='hljl-p'>(</span><span class='hljl-nf'>joinpath</span><span class='hljl-p'>(</span><span class='hljl-n'>WEAVE_ARGS</span><span class='hljl-p'>[</span><span class='hljl-sc'>:testcases_dir</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;case3&quot;</span><span class='hljl-p'>));</span>
+<span class='hljl-n'>case</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;case3&quot;</span><span class='hljl-t'>
+</span><span class='hljl-n'>current_dir</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>dirname</span><span class='hljl-p'>(</span><span class='hljl-nf'>dirname</span><span class='hljl-p'>(</span><span class='hljl-nf'>dirname</span><span class='hljl-p'>(</span><span class='hljl-nd'>@__FILE__</span><span class='hljl-p'>)))</span><span class='hljl-t'>
+</span><span class='hljl-n'>case_dir</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>joinpath</span><span class='hljl-p'>(</span><span class='hljl-n'>current_dir</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;testcases&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>alldata</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>parse_folder</span><span class='hljl-p'>(</span><span class='hljl-nf'>joinpath</span><span class='hljl-p'>(</span><span class='hljl-n'>case_dir</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>case</span><span class='hljl-p'>));</span>
 </pre>
 
-
-
-<p>Plot power grid graph</p>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-    </span><span class='hljl-n'>Random</span><span class='hljl-oB'>.</span><span class='hljl-nf'>seed!</span><span class='hljl-p'>(</span><span class='hljl-n'>seed</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>plot_grid</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>];</span><span class='hljl-t'> </span><span class='hljl-n'>has_nodelabel</span><span class='hljl-oB'>=</span><span class='hljl-kc'>false</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
-</pre>
-
-
-<pre class="julia-error">
-ERROR: UndefVarError: &#96;plot_grid&#96; not defined
-</pre>
 
 
 <p>Parameters</p>
@@ -736,10 +720,10 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 <pre class='hljl'>
 <span class='hljl-n'>params</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>create_param</span><span class='hljl-p'>(;</span><span class='hljl-t'>
-    </span><span class='hljl-n'>stages</span><span class='hljl-oB'>=</span><span class='hljl-ni'>12</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'>
-    </span><span class='hljl-n'>model_constructor_grid</span><span class='hljl-oB'>=</span><span class='hljl-n'>DCPPowerModel</span><span class='hljl-p'>,</span><span class='hljl-t'>
-    </span><span class='hljl-n'>post_method</span><span class='hljl-oB'>=</span><span class='hljl-n'>PowerModels</span><span class='hljl-oB'>.</span><span class='hljl-n'>build_opf</span><span class='hljl-p'>,</span><span class='hljl-t'>
-    </span><span class='hljl-n'>optimizer</span><span class='hljl-oB'>=</span><span class='hljl-n'>GLPK</span><span class='hljl-oB'>.</span><span class='hljl-n'>Optimizer</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>stages</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>12</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>model_constructor_grid</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>DCPPowerModel</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>post_method</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>PowerModels</span><span class='hljl-oB'>.</span><span class='hljl-n'>build_opf</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>optimizer</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>HiGHS</span><span class='hljl-oB'>.</span><span class='hljl-n'>Optimizer</span><span class='hljl-p'>,</span><span class='hljl-t'>
 </span><span class='hljl-p'>);</span>
 </pre>
 
@@ -761,8 +745,8 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 <span class='hljl-n'>start_time</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>time</span><span class='hljl-p'>()</span><span class='hljl-t'>
 </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>train</span><span class='hljl-p'>(</span><span class='hljl-t'>
     </span><span class='hljl-n'>m</span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-n'>iteration_limit</span><span class='hljl-oB'>=</span><span class='hljl-ni'>100</span><span class='hljl-p'>,</span><span class='hljl-t'>
-    </span><span class='hljl-n'>stopping_rules</span><span class='hljl-oB'>=</span><span class='hljl-p'>[</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>Statistical</span><span class='hljl-p'>(;</span><span class='hljl-t'> </span><span class='hljl-n'>num_replications</span><span class='hljl-oB'>=</span><span class='hljl-ni'>200</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>iteration_period</span><span class='hljl-oB'>=</span><span class='hljl-ni'>80</span><span class='hljl-p'>)],</span><span class='hljl-t'>
+    </span><span class='hljl-n'>iteration_limit</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>100</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>stopping_rules</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>Statistical</span><span class='hljl-p'>(;</span><span class='hljl-t'> </span><span class='hljl-n'>num_replications</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>200</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>iteration_period</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>80</span><span class='hljl-p'>)],</span><span class='hljl-t'>
 </span><span class='hljl-p'>);</span><span class='hljl-t'>
 </span><span class='hljl-n'>end_time</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>time</span><span class='hljl-p'>()</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-n'>start_time</span>
 </pre>
@@ -778,22 +762,7 @@ ERROR: UndefVarError: &#96;plot_grid&#96; not defined
 
 
 <pre class="output">
-&#40;:statistical, 2.0505738258361816&#41;
-</pre>
-
-
-<p>Bounds</p>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-    </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>plot_bound</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
-</pre>
-
-
-<pre class="julia-error">
-ERROR: UndefVarError: &#96;plot_bound&#96; not defined
+&#40;:statistical, 5.43823504447937&#41;
 </pre>
 
 
@@ -803,201 +772,9 @@ ERROR: UndefVarError: &#96;plot_bound&#96; not defined
 <pre class='hljl'>
 <span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span><span class='hljl-oB'>:</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span><span class='hljl-t'>
 </span><span class='hljl-n'>Random</span><span class='hljl-oB'>.</span><span class='hljl-nf'>seed!</span><span class='hljl-p'>(</span><span class='hljl-n'>seed</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-n'>results</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>simulate</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>100</span><span class='hljl-p'>);</span><span class='hljl-t'>
-</span><span class='hljl-n'>results</span>
+</span><span class='hljl-n'>results</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>simulate</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>100</span><span class='hljl-p'>);</span>
 </pre>
 
-
-<pre class="output">
-Dict&#123;Symbol, Any&#125; with 5 entries:
-  :solve_time  &#61;&gt; 0.90461
-  :params      &#61;&gt; Dict&#123;Any, Any&#125;&#40;&quot;optimizer&quot;&#61;&gt;Optimizer, &quot;discount_factor&quot;&#61;
-&gt;1.0…
-  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;Intel&#40;R&#41; Xeon&#40;R&#41; Platinum 8272CL CPU @ 2.60GH
-z&quot;, …
-  :data        &#61;&gt; Dict&#123;Any, Any&#125;&#91;Dict&#40;&quot;powersystem&quot;&#61;&gt;Dict&#123;String, Any&#125;&#40;&quot;cos
-t_de…
-  :simulations &#61;&gt; Vector&#123;Dict&#123;Symbol, Any&#125;&#125;&#91;&#91;Dict&#40;:bellman_term&#61;&gt;58122.6, :
-nois…
-</pre>
-
-
-<h2>Testing Results</h2>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Test</span>
-</pre>
-
-
-
-<p>Bound</p>
-
-
-<pre class='hljl'>
-<span class='hljl-nd'>@test</span><span class='hljl-t'> </span><span class='hljl-nf'>isapprox</span><span class='hljl-p'>(</span><span class='hljl-n'>SDDP</span><span class='hljl-oB'>.</span><span class='hljl-nf'>calculate_bound</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-oB'>.</span><span class='hljl-n'>forward_graph</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nfB'>59357.12</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>atol</span><span class='hljl-oB'>=</span><span class='hljl-ni'>10</span><span class='hljl-p'>)</span>
-</pre>
-
-
-<pre class="output">
-Test Failed at /home/runner/work/HydroPowerModels.jl/HydroPowerModels.jl/ex
-amples/HydroValleys/case3_5years.jl:2
-  Expression: isapprox&#40;SDDP.calculate_bound&#40;m.forward_graph&#41;, 59357.12, ato
-l &#61; 10&#41;
-   Evaluated: isapprox&#40;59379.379685146, 59357.12; atol &#61; 10&#41;
-</pre>
-
-<pre class="julia-error">
-ERROR: Test.FallbackTestSetException&#40;&quot;There was an error during testing&quot;&#41;
-</pre>
-
-
-<p>Number of Simulations</p>
-
-
-<pre class='hljl'>
-<span class='hljl-nd'>@test</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>results</span><span class='hljl-p'>[</span><span class='hljl-sc'>:simulations</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-ni'>100</span>
-</pre>
-
-
-<pre class="output">
-Test Passed
-</pre>
-
-
-<h2>Plot Aggregated Results</h2>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-    </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>plot_aggregated_results</span><span class='hljl-p'>(</span><span class='hljl-n'>results</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
-</pre>
-
-
-<pre class="julia-error">
-ERROR: UndefVarError: &#96;plot_aggregated_results&#96; not defined
-</pre>
-
-
-<h1>Annex 1: Case Summary</h1>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-    </span><span class='hljl-n'>PowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>print_summary</span><span class='hljl-p'>(</span><span class='hljl-n'>alldata</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-s'>&quot;powersystem&quot;</span><span class='hljl-p'>])</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
-</pre>
-
-
-<pre class="output">
-Metadata
-  baseMVA: 100
-  cost_deficit: 1000
-  name: case3
-  per_unit: true
-  source_type: matpower
-  source_version: 2
-
-Table Counts
-  bus: 3
-  load: 3
-  shunt: 0
-  gen: 3
-  storage: 0
-  switch: 0
-  branch: 3
-  dcline: 0
-
-
-Table: bus
-         bus_i, bus_type
-      1:     1,        3
-      2:     2,        2
-      3:     3,        2
-
-  default values:
-    base_kv: 0
-    vm: 1
-    va: 0
-    vmin: 0.900
-    vmax: 1.100
-    area: 1
-    zone: 1
-
-
-Table: load
-         load_bus, pd,    qd
-      1:        3,  1,     0
-      2:        1,  0, 0.000
-      3:        2,  0, 0.000
-
-  default values:
-    status: 1
-
-
-Table: gen
-         gen_bus,  pmax, ncost,  cost
-      1:       2,     1,     2, &#91;&#40;2&#41;&#93;
-      2:       3, 0.500,     2, &#91;&#40;2&#41;&#93;
-      3:       1, 0.800,     0, &#91;&#40;0&#41;&#93;
-
-  default values:
-    pg: 0
-    qg: 0
-    vg: 1
-    mbase: 100
-    pmin: 0
-    qmin: -100
-    qmax: 100
-    gen_status: 1
-    model: 2
-    startup: 0
-    shutdown: 0
-    apf: 0
-    pc1: 0
-    pc2: 0
-    qc1max: 0
-    qc1min: 0
-    qc2max: 0
-    qc2min: 0
-    ramp_10: 0
-    ramp_30: 0
-    ramp_agc: 0
-    ramp_q: 0
-
-
-Table: branch
-         f_bus, t_bus,  br_r,  br_x,  b_fr,  b_to, rate_a
-      1:     1,     3, 0.065,     1, 0.225, 0.225,      1
-      2:     3,     2, 0.025, 0.500, 0.350, 0.350,  0.650
-      3:     1,     2, 0.042,     1, 0.150, 0.150,  0.250
-
-  default values:
-    g_fr: 0
-    g_to: 0
-    tap: 1
-    shift: 0
-    br_status: 1
-    angmax: 1.047
-    angmin: -1.047
-    transformer: false
-</pre>
-
-
-<h1>Annex 2: Plot Results</h1>
-
-
-<pre class='hljl'>
-<span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-n'>plot_bool</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-kc'>true</span><span class='hljl-t'>
-    </span><span class='hljl-n'>HydroPowerModels</span><span class='hljl-oB'>.</span><span class='hljl-nf'>plotresults</span><span class='hljl-p'>(</span><span class='hljl-n'>results</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
-</pre>
-
-
-<pre class="julia-error">
-ERROR: UndefVarError: &#96;plotresults&#96; not defined
-</pre>
 
 
 
@@ -1005,7 +782,7 @@ ERROR: UndefVarError: &#96;plotresults&#96; not defined
         <div class="footer">
           <p>
             Published from <a href="case3_5years.jl">case3_5years.jl</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-09-15.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2024-03-15.
           </p>
         </div>
       </div>
