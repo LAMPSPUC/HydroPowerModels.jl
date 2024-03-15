@@ -45,6 +45,11 @@ params = create_param(;
 #'+ results =  "hidden"
 m = hydro_thermal_operation(alldata, params);
 
+all_vars = all_variables(m.forward_graph[1].subproblem)
+deficit_vars = all_vars[findall(x -> occursin("deficit", name(x)), all_vars)]
+
+@test all(haskey(objective_function(m.forward_graph[1].subproblem).terms, deficit_vars[i]) for i in 1:length(deficit_vars))
+
 #' ## Train
 #'+ results =  "hidden"
 Random.seed!(seed)
