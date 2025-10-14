@@ -798,19 +798,10 @@ numerical stability report
 -------------------------------------------------------------------
  iteration    simulation      bound        time &#40;s&#41;     solves  pid
 -------------------------------------------------------------------
-         1   1.551194e&#43;04  6.015879e&#43;03  6.096712e&#43;00        48   1
-Simulated policy value: &#91; 1.081742e&#43;04,  1.216243e&#43;04&#93;
-        20   1.300000e&#43;04  1.133667e&#43;04  6.934869e&#43;00       960   1
--------------------------------------------------------------------
-status         : statistical
-total time &#40;s&#41; : 6.934869e&#43;00
-total solves   : 960
-best bound     :  1.133667e&#43;04
-simulation ci  :  1.166137e&#43;04 ± 8.401270e&#43;02
-numeric issues : 0
--------------------------------------------------------------------
+</pre>
 
-13.406264066696167
+<pre class="julia-error">
+ERROR: Encountered an error in HiGHS &#40;Status -1&#41;. Check the log for details.
 </pre>
 
 
@@ -822,8 +813,9 @@ numeric issues : 0
 </pre>
 
 
-<pre class="output">
-&#40;:statistical, 13.406264066696167&#41;
+<pre class="julia-error">
+ERROR: UndefVarError: &#96;end_time&#96; not defined in &#96;Main.var&quot;##WeaveSandBox#277&quot;&#96;
+Suggestion: check for spelling errors or missing imports.
 </pre>
 
 
@@ -838,17 +830,8 @@ numeric issues : 0
 </pre>
 
 
-<pre class="output">
-Dict&#123;Symbol, Any&#125; with 5 entries:
-  :solve_time  &#61;&gt; 1.31946
-  :params      &#61;&gt; Dict&#123;Any, Any&#125;&#40;&quot;optimizer&quot;&#61;&gt;Optimizer, &quot;discount_factor&quot;&#61;
-&gt;1.0…
-  :machine     &#61;&gt; Dict&#40;:cpu&#61;&gt;&quot;AMD EPYC 7763 64-Core Processor&quot;, :memory&#61;&gt;&quot;1
-5.62…
-  :data        &#61;&gt; Dict&#123;Any, Any&#125;&#91;Dict&#40;&quot;powersystem&quot;&#61;&gt;Dict&#123;String, Any&#125;&#40;&quot;cos
-t_de…
-  :simulations &#61;&gt; Vector&#123;Dict&#123;Symbol, Any&#125;&#125;&#91;&#91;Dict&#40;:bellman_term&#61;&gt;10079.8, :
-nois…
+<pre class="julia-error">
+ERROR: Encountered an error in HiGHS &#40;Status -1&#41;. Check the log for details.
 </pre>
 
 
@@ -870,7 +853,58 @@ nois…
 
 
 <pre class="output">
-Test Passed
+Error During Test at /home/runner/work/HydroPowerModels.jl/HydroPowerModels
+.jl/examples/HydroValleys/case3.jl:2
+  Test threw exception
+  Expression: SDDP.calculate_bound&#40;m.forward_graph&#41; &gt;&#61; 11000.0
+  Encountered an error in HiGHS &#40;Status -1&#41;. Check the log for details.
+  Stacktrace:
+    &#91;1&#93; error&#40;s::String&#41;
+      @ Base ./error.jl:44
+    &#91;2&#93; _check_ret
+      @ ~/.julia/packages/HiGHS/ClemT/src/MOI_wrapper.jl:349 &#91;inlined&#93;
+    &#91;3&#93; _set_variable_primal_start&#40;model::HiGHS.Optimizer&#41;
+      @ HiGHS ~/.julia/packages/HiGHS/ClemT/src/MOI_wrapper.jl:2190
+    &#91;4&#93; optimize&#33;&#40;model::HiGHS.Optimizer&#41;
+      @ HiGHS ~/.julia/packages/HiGHS/ClemT/src/MOI_wrapper.jl:2205
+    &#91;5&#93; optimize&#33;
+      @ ~/.julia/packages/MathOptInterface/zq9bo/src/Bridges/bridge_optimiz
+er.jl:367 &#91;inlined&#93;
+    &#91;6&#93; optimize&#33;
+      @ ~/.julia/packages/MathOptInterface/zq9bo/src/MathOptInterface.jl:12
+2 &#91;inlined&#93;
+    &#91;7&#93; optimize&#33;&#40;m::MathOptInterface.Utilities.CachingOptimizer&#123;MathOptInt
+erface.Bridges.LazyBridgeOptimizer&#123;HiGHS.Optimizer&#125;, MathOptInterface.Utili
+ties.UniversalFallback&#123;MathOptInterface.Utilities.Model&#123;Float64&#125;&#125;&#125;&#41;
+      @ MathOptInterface.Utilities ~/.julia/packages/MathOptInterface/zq9bo
+/src/Utilities/cachingoptimizer.jl:370
+    &#91;8&#93; optimize&#33;&#40;model::Model; ignore_optimize_hook::Bool, _differentiatio
+n_backend::MathOptInterface.Nonlinear.SparseReverseMode, kwargs::@Kwargs&#123;&#125;&#41;
+      @ JuMP ~/.julia/packages/JuMP/N7h14/src/optimizer_interface.jl:609
+    &#91;9&#93; optimize&#33;
+      @ ~/.julia/packages/JuMP/N7h14/src/optimizer_interface.jl:560 &#91;inline
+d&#93;
+   &#91;10&#93; solve_subproblem&#40;model::SDDP.PolicyGraph&#123;Int64&#125;, node::SDDP.Node&#123;In
+t64&#125;, state::Dict&#123;Symbol, Float64&#125;, noise::Int64, scenario_path::Vector&#123;Tup
+le&#123;Int64, Any&#125;&#125;; duality_handler::Nothing&#41;
+      @ SDDP ~/.julia/packages/SDDP/39RYL/src/algorithm.jl:517
+   &#91;11&#93; calculate_bound&#40;model::SDDP.PolicyGraph&#123;Int64&#125;, root_state::Dict&#123;Sy
+mbol, Float64&#125;; risk_measure::SDDP.Expectation&#41;
+      @ SDDP ~/.julia/packages/SDDP/39RYL/src/algorithm.jl:920
+   &#91;12&#93; calculate_bound
+      @ ~/.julia/packages/SDDP/39RYL/src/algorithm.jl:880 &#91;inlined&#93;
+   &#91;13&#93; calculate_bound&#40;model::SDDP.PolicyGraph&#123;Int64&#125;&#41;
+      @ SDDP ~/.julia/packages/SDDP/39RYL/src/algorithm.jl:880
+   &#91;14&#93; top-level scope
+      @ ~/work/HydroPowerModels.jl/HydroPowerModels.jl/examples/HydroValley
+s/case3.jl:516
+   &#91;15&#93; macro expansion
+      @ /opt/hostedtoolcache/julia/1.12.0/x64/share/julia/stdlib/v1.12/Test
+/src/Test.jl:677 &#91;inlined&#93;
+</pre>
+
+<pre class="julia-error">
+ERROR: Test.FallbackTestSetException&#40;&quot;There was an error during testing&quot;&#41;
 </pre>
 
 
@@ -883,7 +917,24 @@ Test Passed
 
 
 <pre class="output">
-Test Passed
+Error During Test at /home/runner/work/HydroPowerModels.jl/HydroPowerModels
+.jl/examples/HydroValleys/case3.jl:2
+  Test threw exception
+  Expression: length&#40;results&#91;:simulations&#93;&#41; &#61;&#61; 100
+  UndefVarError: &#96;results&#96; not defined in &#96;Main.var&quot;##WeaveSandBox#277&quot;&#96;
+  Suggestion: add an appropriate import or assignment. This global was decl
+ared but not assigned.
+  Stacktrace:
+   &#91;1&#93; top-level scope
+     @ ~/work/HydroPowerModels.jl/HydroPowerModels.jl/examples/HydroValleys
+/case3.jl:516
+   &#91;2&#93; macro expansion
+     @ /opt/hostedtoolcache/julia/1.12.0/x64/share/julia/stdlib/v1.12/Test/
+src/Test.jl:677 &#91;inlined&#93;
+</pre>
+
+<pre class="julia-error">
+ERROR: Test.FallbackTestSetException&#40;&quot;There was an error during testing&quot;&#41;
 </pre>
 
 
@@ -892,7 +943,7 @@ Test Passed
         <div class="footer">
           <p>
             Published from <a href="case3.jl">case3.jl</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2025-10-13.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2025-10-14.
           </p>
         </div>
       </div>
