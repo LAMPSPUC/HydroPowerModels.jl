@@ -11,11 +11,18 @@ A Julia/JuMP package for Hydrothermal Multistage Steady-State Power Network Opti
 [codecov-img]: https://codecov.io/gh/LAMPSPUC/HydroPowerModels.jl/coverage.svg?branch=main
 [codecov-url]: https://codecov.io/gh/LAMPSPUC/HydroPowerModels.jl?branch=main
 
-[docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
-[docs-latest-url]: https://LAMPSPUC.github.io/HydroPowerModels.jl/latest/
+[docs-latest-img]: https://img.shields.io/badge/docs-guide-blue.svg
+[docs-latest-url]: https://github.com/LAMPSPUC/HydroPowerModels.jl/blob/main/docs/src/index.md
 
 [paper-img]: https://proceedings.juliacon.org/papers/10.21105/jcon.00035/status.svg
 [paper-url]: https://proceedings.juliacon.org/papers/10.21105/jcon.00035#
+
+## Documentation
+
+- [Overview and installation](docs/src/index.md)
+- [Getting started](docs/src/getstarted.md)
+- [Input data formats](docs/src/inputfiles.md)
+- [Example scripts](examples)
 
 **If you are struggling to figure out how to use something, raise a Github issue!**
 
