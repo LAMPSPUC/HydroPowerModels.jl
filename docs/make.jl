@@ -21,6 +21,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Manual" => "getstarted.md",
+        "Design" => "design.md",
         "Case data" => "inputfiles.md",
         "Examples" => "examples/cases.md",
         "Reference" => "apireference.md",
