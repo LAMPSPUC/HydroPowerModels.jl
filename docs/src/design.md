@@ -65,7 +65,9 @@ params = create_param(;
     model_constructor_grid_forward = ACPPowerModel,   # operation: visits states, realizes costs
     post_method = PowerModels.build_opf,
     optimizer = HiGHS.Optimizer,
-    optimizer_forward = optimizer_with_attributes(Ipopt.Optimizer, "tol" => 1e-6),
+    optimizer_forward = optimizer_with_attributes(
+        Ipopt.Optimizer, "tol" => 1e-6, "mu_init" => 1e-4, "max_iter" => 6000,
+    ),
     stage_hours = 24 * 30,
 )
 
