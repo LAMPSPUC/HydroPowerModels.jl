@@ -14,7 +14,7 @@ makedocs(;
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://LAMPSPUC.github.io/HydroPowerModels.jl",
-        assets=String[],
+        assets=["assets/figures.css"],
     ),
     sitename="HydroPowerModels.jl",
     authors="Andrew Rosemberg et al",
