@@ -16,5 +16,5 @@ Solution method is handled by [SDDP.jl](https://github.com/odow/SDDP.jl).
 The current package is unregistered so you will need to add it as follows:
 
 ```julia
-julia> ] add https://github.com/andrewrosemberg/HydroPowerModels.jl.git 
+julia> ] add https://github.com/LAMPSPUC/HydroPowerModels.jl.git 
 ```
