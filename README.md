@@ -8,8 +8,8 @@
 
 </div>
 
-[build-img]: https://travis-ci.com/LAMPSPUC/HydroPowerModels.jl.svg?branch=main
-[build-url]: https://travis-ci.com/LAMPSPUC/HydroPowerModels.jl
+[build-img]: https://github.com/LAMPSPUC/HydroPowerModels.jl/actions/workflows/CI.yml/badge.svg?branch=main
+[build-url]: https://github.com/LAMPSPUC/HydroPowerModels.jl/actions/workflows/CI.yml
 
 [codecov-img]: https://codecov.io/gh/LAMPSPUC/HydroPowerModels.jl/coverage.svg?branch=main
 [codecov-url]: https://codecov.io/gh/LAMPSPUC/HydroPowerModels.jl?branch=main
