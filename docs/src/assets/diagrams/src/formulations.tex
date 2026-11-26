@@ -1,0 +1,150 @@
+% HydroPowerModels.jl: what the package builds.
+%
+% A case folder (network, reservoirs, inflows) becomes one multistage model whose
+% stage problems put the hydro layer on top of a PowerModels.jl network. The
+% network formulation is an argument, and SDDP.jl training takes it twice: the
+% backward pass computes the cuts on one formulation, the forward pass visits the
+% states on another (the same one by default). Simulation operates the forward
+% formulation with the cuts. Names follow create_param and docs/src/getstarted.md.
+%
+% Build: make -C docs/src/assets/diagrams/src
+%   pdflatex formulations.tex                                              -> wide layout
+%   pdflatex -jobname=hydropowermodels--formulations-compact formulations.tex -> narrow layout
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage{amsmath,amssymb,bm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{arrows.meta,shapes.geometric,shapes.symbols,calc,positioning}
+
+% palette of the TS-DDR figure
+\definecolor{dTeal}{HTML}{1A9AA0}
+\definecolor{dTealLine}{HTML}{3FB3B8}
+\definecolor{dNavy}{HTML}{3F4C8C}
+\definecolor{dInk}{HTML}{1E2235}
+\definecolor{dRed}{HTML}{E4573D}
+\definecolor{dCoral}{HTML}{E2765A}
+\definecolor{dOrange}{HTML}{F4A93B}
+\definecolor{dPeach}{HTML}{FBD9AC}
+\definecolor{dPanel}{HTML}{EEF0F2}
+\definecolor{dGray}{HTML}{8A90A0}
+\definecolor{dShadow}{HTML}{D5DAE3}
+
+\newif\ifcompact
+\edef\compactname{\detokenize{hydropowermodels--formulations-compact}}
+\edef\jobstr{\jobname}
+\ifx\jobstr\compactname\compacttrue\fi
+
+\tikzset{
+  >={Stealth[length=5pt,width=4pt]},
+  every node/.style={text=dInk},
+  title/.style={anchor=west,font=\normalsize,inner sep=0pt},
+  head/.style={font=\normalsize\bfseries,text=dNavy,anchor=west,inner sep=0pt},
+  note/.style={font=\itshape\small,text=dNavy,anchor=west,inner sep=0pt},
+  txt/.style={font=\small,anchor=west,inner sep=0pt},
+  file/.style={font=\ttfamily\small,anchor=west,inner sep=0pt},
+  card/.style={rectangle,rounded corners=4pt,fill=white,draw=dShadow,line width=0.6pt},
+  chip/.style={rectangle,rounded corners=3pt,fill=dPanel,draw=none,font=\ttfamily\footnotesize,
+               inner xsep=4pt,inner ysep=3pt,anchor=west},
+  outbox/.style={rectangle,rounded corners=3pt,fill=dPeach,draw=dOrange,line width=0.7pt,
+              font=\small,inner xsep=5pt,inner ysep=4pt},
+  fwd/.style={->,dTealLine,line width=0.9pt},
+  cut/.style={->,dOrange,line width=0.9pt},
+}
+
+% Lane frame in the paper style: two shadow copies behind a teal rounded frame.
+\newcommand{\lane}[4]{% #1 x0, #2 y0, #3 x1, #4 y1
+  \foreach \o/\c in {0.16/dShadow!60,0.08/dShadow}
+    \draw[\c,fill=white,rounded corners=5pt,line width=0.6pt]
+      (#1+\o,#2-\o) rectangle (#3+\o,#4-\o);
+  \draw[dTealLine,fill=white,rounded corners=5pt,line width=0.9pt] (#1,#2) rectangle (#3,#4);}
+
+% A data file: a page with a folded corner, centred at #1.
+\newcommand{\filegl}[1]{\begin{scope}[shift={(#1)}]
+  \draw[dOrange,fill=dPeach,line width=0.7pt,line join=round]
+    (-0.17,-0.23) -- (0.17,-0.23) -- (0.17,0.11) -- (0.05,0.23) -- (-0.17,0.23) -- cycle;
+  \draw[dOrange,line width=0.5pt,line join=round] (0.05,0.23) -- (0.05,0.11) -- (0.17,0.11);
+  \foreach \y in {0.0,-0.09} \draw[dOrange,line width=0.4pt] (-0.09,\y) -- (0.09,\y);
+\end{scope}}
+
+% Column contents (shared by both layouts). #1 = top-left corner of the column.
+\newcommand{\datacol}[1]{\begin{scope}[shift={(#1)}]
+  \filegl{0.2,-0.2}   \node[file] at (0.6,-0.03) {PowerModels.json};
+                      \node[note] at (0.6,-0.43) {network};
+  \filegl{0.2,-1.25}  \node[file] at (0.6,-1.08) {hydro.json};
+                      \node[note] at (0.6,-1.48) {reservoirs, cascades};
+  \filegl{0.2,-2.3}   \node[file] at (0.6,-2.13) {inflows.csv};
+                      \node[note] at (0.6,-2.53) {inflow scenarios};
+\end{scope}}
+\newcommand{\stagecol}[2]{\begin{scope}[shift={(#1)}]% #2 = width of the divider
+  \node[head] at (0,0) {Hydro layer};
+  \node[txt] at (0,-0.5) {volumes, outflow, spillage,};
+  \node[txt] at (0,-0.92) {cascades, inflows, deficit};
+  \draw[dShadow,line width=0.6pt] (0,-1.35) -- (#2,-1.35);
+  \node[head] at (0,-1.8) {PowerModels network};
+  \node[chip] at (0,-2.4)  {ACPPowerModel};
+  \node[chip] at (2.45,-2.4) {SOCWRPowerModel};
+  \node[chip] at (0,-3.0)  {DCPPowerModel};
+  \node[chip] at (2.45,-3.0) {NFAPowerModel};
+  \node[note] at (0,-3.6) {\dots\ any PowerModels formulation};
+\end{scope}}
+\newcommand{\traincol}[2]{\begin{scope}[shift={(#1)}]% #2 = width of the divider
+  \node[head] at (0,0) {Backward pass\textmd{\textit{\small\ \ computes the cuts}}};
+  \node[chip] (bw) at (0,-0.55) {model\_constructor\_grid\_backward};
+  \draw[fwd] (1.3,-1.85) -- node[right,font=\small,text=dTeal] {states} (1.3,-0.84);
+  \draw[cut] (3.4,-0.84) -- node[right,font=\small,text=dOrange!85!black] {cuts} (3.4,-1.85);
+  \node[chip] (fw) at (0,-2.13) {model\_constructor\_grid\_forward};
+  \node[head] at (0,-2.7) {Forward pass\textmd{\textit{\small\ \ visits the states}}};
+  \draw[dShadow,line width=0.6pt] (0,-3.15) -- (#2,-3.15);
+  \node[file] (sim) at (0,-3.7) {simulate(m, N)};
+  \node[outbox,anchor=east] (res) at (#2,-3.7) {results};
+  \draw[cut] (sim.east) ++(0.15,0) -- (res.west);
+  \node[note] at (0,-4.2) {operates the forward formulation with the cuts};
+\end{scope}}
+
+\begin{document}
+\ifcompact
+% ============================ narrow (phone) layout ============================
+\begin{tikzpicture}
+  % case data
+  \lane{0}{9.95}{7.9}{14.6}
+  \node[title] at (0.25,14.2) {\textcolor{dTeal}{\bfseries Case data:} one folder per case};
+  \datacol{0.3,13.55}
+  \node[note] at (0.3,10.45) {read by};
+  \node[chip] at (1.45,10.45) {parse\_folder(path)};
+  % each stage
+  \draw[fwd] (3.95,9.95) -- (3.95,9.3);
+  \lane{0}{4.15}{7.9}{9.3}
+  \node[title] at (0.25,8.9) {\textcolor{dTeal}{\bfseries Each stage:} hydro on a network};
+  \stagecol{0.3,8.2}{7.3}
+  % training and simulation
+  \draw[fwd] (3.95,4.15) -- (3.95,3.5);
+  \node[card,minimum width=7.9cm,minimum height=6.1cm,anchor=north west] at (0,3.5) {};
+  \node[title] at (0.25,3.1) {\textcolor{dTeal}{\bfseries SDDP.jl:} one formulation per pass};
+  \node[note] at (0.3,2.65) {the same one by default};
+  \traincol{0.3,2.05}{7.3}
+\end{tikzpicture}
+\else
+% =============================== wide layout ===================================
+\begin{tikzpicture}
+  % case data
+  \lane{0}{0}{4.3}{5.7}
+  \node[title] at (0.25,5.3) {\textcolor{dTeal}{\bfseries Case data}};
+  \datacol{0.3,4.55}
+  \node[note] at (0.3,1.15) {one folder per case, read by};
+  \node[chip] at (0.3,0.6) {parse\_folder(path)};
+  % each stage
+  \draw[fwd] (4.3,2.85) -- (5.1,2.85);
+  \lane{5.1}{0}{10.6}{5.7}
+  \node[title] at (5.35,5.3) {\textcolor{dTeal}{\bfseries Each stage:} \textcolor{dInk}{hydro on a network}};
+  \stagecol{5.4,4.6}{4.95}
+  % training and simulation
+  \draw[fwd] (10.6,2.85) -- (11.4,2.85);
+  \node[card,minimum width=7.1cm,minimum height=5.7cm,anchor=south west] at (11.4,0) {};
+  \node[title] at (11.65,5.3) {\textcolor{dTeal}{\bfseries SDDP.jl:} \textcolor{dInk}{one formulation per pass}};
+  \traincol{11.7,4.6}{6.5}
+  \node[note,align=left] at (16.25,3.25) {the same one\\by default};
+\end{tikzpicture}
+\fi
+\end{document}

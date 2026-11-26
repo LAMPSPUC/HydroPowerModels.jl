@@ -6,3 +6,4 @@ Debug/
 *.mps
 .DS_Store
 Manifest.toml
+docs/src/assets/diagrams/src/build/
